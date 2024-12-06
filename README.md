@@ -2,6 +2,8 @@
 
 O projeto Sergipe-Cursos consiste no desenvolvimento de uma API Rest que se baseia nos conceitos de Clean Architecture.
 
+![CleanArchitecture](CleanArchitecture.jpg)
+
 
 ### Idealização do Sistema
 
