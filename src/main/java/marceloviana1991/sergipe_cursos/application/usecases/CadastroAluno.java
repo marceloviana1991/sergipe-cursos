@@ -1,12 +1,13 @@
 package marceloviana1991.sergipe_cursos.application.usecases;
 
-import marceloviana1991.sergipe_cursos.application.gateways.RepositorioDeAluno;
+import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 import marceloviana1991.sergipe_cursos.domain.entities.Aluno;
 
-public class CadastrarAluno {
-    private final RepositorioDeAluno repositorio;
+public class CadastroAluno {
 
-    public CadastrarAluno(RepositorioDeAluno repositorio) {
+    private final RepositorioAluno repositorio;
+
+    public CadastroAluno(RepositorioAluno repositorio) {
         this.repositorio = repositorio;
     }
 

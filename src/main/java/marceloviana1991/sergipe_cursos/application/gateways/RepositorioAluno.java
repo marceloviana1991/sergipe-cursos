@@ -4,10 +4,7 @@ import marceloviana1991.sergipe_cursos.domain.entities.Aluno;
 
 import java.util.List;
 
-public interface RepositorioDeAluno {
+public interface RepositorioAluno {
     Aluno cadastrarAluno(Aluno aluno);
     List<Aluno> listarAlunos();
-    Aluno detalharAluno();
-    Aluno editarAluno();
-    void excluiAluno();
 }
