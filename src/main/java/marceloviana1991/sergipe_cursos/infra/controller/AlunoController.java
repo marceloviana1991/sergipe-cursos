@@ -2,6 +2,7 @@ package marceloviana1991.sergipe_cursos.infra.controller;
 
 import marceloviana1991.sergipe_cursos.application.usecases.CadastroAluno;
 import marceloviana1991.sergipe_cursos.application.usecases.DetalhamentoAluno;
+import marceloviana1991.sergipe_cursos.application.usecases.ExclusaoAluno;
 import marceloviana1991.sergipe_cursos.application.usecases.ListagemAluno;
 import marceloviana1991.sergipe_cursos.domain.entities.Aluno;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +16,23 @@ public class AlunoController {
     private final CadastroAluno cadastroAluno;
     private final ListagemAluno listagemAluno;
     private final DetalhamentoAluno detalhamentoAluno;
+    private final ExclusaoAluno exclusaoAluno;
 
-    public AlunoController(CadastroAluno cadastroAluno, ListagemAluno listagemAluno, DetalhamentoAluno detalhamentoAluno) {
+    public AlunoController(CadastroAluno cadastroAluno,
+                           ListagemAluno listagemAluno,
+                           DetalhamentoAluno detalhamentoAluno,
+                           ExclusaoAluno exclusaoAluno) {
         this.cadastroAluno = cadastroAluno;
         this.listagemAluno = listagemAluno;
         this.detalhamentoAluno = detalhamentoAluno;
+        this.exclusaoAluno = exclusaoAluno;
     }
 
     @PostMapping
     public AlunoDto cadastrarAluno(@RequestBody AlunoDto alunoDto) {
         Aluno aluno = cadastroAluno.cadastrarAluno(new Aluno(alunoDto.cpf(),
                 alunoDto.nome(), alunoDto.nascimento(), alunoDto.email()));
-        return new AlunoDto(aluno.getCpf(), aluno.getNome(), aluno.getNascimento(), aluno.getEmail());
+        return new AlunoDto(aluno);
     }
 
     @GetMapping
@@ -34,13 +40,19 @@ public class AlunoController {
         List<Aluno> alunoList = listagemAluno.listarAlunos();
         return alunoList
                 .stream()
-                .map(aluno -> new AlunoDto(aluno.getCpf(), aluno.getNome(), aluno.getNascimento(), aluno.getEmail()))
+                .map(AlunoDto::new)
                 .toList();
     }
 
     @GetMapping("{id}")
     public AlunoDto detatlharAluno(@PathVariable Long id) {
         Aluno aluno = detalhamentoAluno.detalharAluno(id);
-        return new AlunoDto(aluno.getCpf(), aluno.getNome(), aluno.getNascimento(), aluno.getEmail());
+        return new AlunoDto(aluno);
     }
+
+    @DeleteMapping("{id}")
+    public void excluirAluno(@PathVariable Long id) {
+        exclusaoAluno.excluirAluno(id);
+    }
+
 }

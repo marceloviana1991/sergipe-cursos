@@ -6,10 +6,10 @@ import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
 public class AlunoEntityMapper {
 
     public AlunoEntity toEntity(Aluno aluno) {
-        return new AlunoEntity(aluno.getEmail(), aluno.getCpf(), aluno.getNome(), aluno.getNascimento());
+        return new AlunoEntity(aluno);
     }
 
     public Aluno toDomain(AlunoEntity entity) {
-        return new Aluno(entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
+        return new Aluno(entity);
     }
 }

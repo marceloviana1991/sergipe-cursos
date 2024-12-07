@@ -39,7 +39,6 @@ http://localhost:8080/alunos
 ```
 
 
-
 ### Endpoints
 
 | Método | Nome do endpoint |Body Request | Body Response | Path Variable
@@ -47,6 +46,28 @@ http://localhost:8080/alunos
 | POST | cadastrarAluno |application/json | application/json | |
 | GET | listarAlunos | |  application/json | |
 | GET | detalharAluno  | | application/json | ```{id}``` |
-| PUT | editarAluno | application/json | application/json | |
 | DELETE | excluirAluno |  | | ```{id}```  |
+
+
+### Body Content
+```
+Resquest
+{
+    "cpf": "String",
+    "nome": "String",
+    "nascimento": "String (YYYY-MM-DD)",
+    "email": "String"
+}
+```
+```
+Response
+{
+    "id": Long,
+    "cpf": "String",
+    "nome": "String",
+    "nascimento": "YYYY-MM-DD",
+    "email": "String"
+}
+```
+
 
