@@ -113,3 +113,44 @@ Response
     "vagas": Integer
 }
 ```
+
+## Matricula
+
+Recurso responsável pelo registro de relacionamento de matricula entre os recursos de curso e aluno
+
+
+### URL base para chamadas
+
+```
+http://localhost:8080/matriculas
+```
+
+
+### Endpoints
+
+| Método | Nome do endpoint |Body Request | Body Response | Path Variable
+|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------------------|
+| POST | cadastrarMatricula |application/json | application/json | |
+| GET | listarMatriculas | |  application/json | |
+
+
+
+### Body Content
+
+```
+Resquest
+{
+    "alunoId": Long,
+    "cursoId": Long
+}
+```
+```
+Response
+{
+    "id": Long,
+    "alunoId": Long,
+    "cursoId": Long
+}
+```
+
+
