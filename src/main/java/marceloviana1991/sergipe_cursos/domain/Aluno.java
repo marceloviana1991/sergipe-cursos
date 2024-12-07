@@ -12,19 +12,6 @@ public class Aluno {
     private LocalDate nascimento;
     private String email;
 
-    public Aluno(String cpf, String nome, LocalDate nascimento, String email) {
-        if (cpf == null || !cpf.matches("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}")) {
-            throw new IllegalArgumentException("Cpf no padrão incorreto!");
-        }
-        if (email == null || !email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-            throw new IllegalArgumentException("email no padrão incorreto!");
-        }
-        this.cpf = cpf;
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.email = email;
-    }
-
     public Aluno(AlunoEntity entity) {
         this.id = entity.getId();
         this.cpf = entity.getCpf();
@@ -34,6 +21,13 @@ public class Aluno {
     }
 
     public Aluno(AlunoDto alunoDto) {
+        if (alunoDto.cpf() == null || !alunoDto.cpf().matches("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}")) {
+            throw new IllegalArgumentException("Cpf no padrão incorreto!");
+        }
+        if (alunoDto.email() == null ||
+                !alunoDto.email().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            throw new IllegalArgumentException("email no padrão incorreto!");
+        }
         this.cpf = alunoDto.cpf();
         this.nome = alunoDto.nome();
         this.nascimento = alunoDto.nascimento();

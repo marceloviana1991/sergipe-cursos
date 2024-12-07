@@ -51,6 +51,7 @@ public class AlunoController {
     }
 
     @DeleteMapping("{id}")
+    @Transactional
     public void excluirAluno(@PathVariable Long id) {
         exclusaoAluno.excluirAluno(id);
     }

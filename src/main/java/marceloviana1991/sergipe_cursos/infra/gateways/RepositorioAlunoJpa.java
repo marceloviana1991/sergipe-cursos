@@ -1,5 +1,6 @@
 package marceloviana1991.sergipe_cursos.infra.gateways;
 
+import jakarta.transaction.Transactional;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 import marceloviana1991.sergipe_cursos.domain.Aluno;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
