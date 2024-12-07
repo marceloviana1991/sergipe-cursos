@@ -59,4 +59,8 @@ public class CursoEntity {
         if (curso.getDescricao() != null) {this.descricao = curso.getDescricao();}
         if (curso.getVagas() != null) {this.vagas = curso.getVagas();}
     }
+
+    public void preencherVaga() {
+        this.vagas -= 1;
+    }
 }

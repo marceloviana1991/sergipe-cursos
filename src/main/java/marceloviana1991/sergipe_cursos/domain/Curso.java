@@ -50,4 +50,5 @@ public class Curso {
     public void setVagas(Integer vagas) {
         this.vagas = vagas;
     }
+
 }
