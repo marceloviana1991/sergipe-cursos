@@ -11,7 +11,7 @@ public class CadastroMatricula {
         this.repositorio = repositorio;
     }
 
-    public Matricula cadastrarMatricula(Long alunoId, Long cursoId) {
-        return repositorio.cadastrarMatricula(alunoId, cursoId);
+    public Matricula cadastrarMatricula(Matricula matricula) {
+        return repositorio.cadastrarMatricula(matricula);
     }
 }

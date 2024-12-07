@@ -18,8 +18,14 @@ public class MatriculaEntityMapper {
     }
 
     public MatriculaEntity toEntity(Matricula matricula) {
-        AlunoEntity alunoEntity = alunoEntityMapper.toEntity(matricula.getAluno());
-        CursoEntity cursoEntity = cursoEntityMapper.toEntity(matricula.getCurso());
+        AlunoEntity alunoEntity = new AlunoEntity(
+                matricula.getAluno().getId(), matricula.getAluno().getCpf(), matricula.getAluno().getNome(),
+                matricula.getAluno().getNascimento(), matricula.getAluno().getEmail()
+        );
+        CursoEntity cursoEntity = new CursoEntity(
+                matricula.getCurso().getId(), matricula.getCurso().getNome(), matricula.getCurso().getDescricao(),
+                matricula.getCurso().getVagas()
+        );
         return new MatriculaEntity(alunoEntity, cursoEntity);
     }
 

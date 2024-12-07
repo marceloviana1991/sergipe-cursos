@@ -4,8 +4,6 @@ import marceloviana1991.sergipe_cursos.application.gateways.RepositorioMatricula
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.CadastroMatricula;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.ListagemMatricula;
 import marceloviana1991.sergipe_cursos.infra.gateways.*;
-import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
-import marceloviana1991.sergipe_cursos.infra.persistence.CursoRepository;
 import marceloviana1991.sergipe_cursos.infra.persistence.MatriculaRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,11 +24,9 @@ public class MatriculaConfig {
     @Bean
     public RepositorioMatriculaJpa repositorioMatriculaJpa(
             MatriculaRepository matriculaRepository,
-            MatriculaEntityMapper matriculaEntityMapper,
-            AlunoRepository alunoRepository,
-            CursoRepository cursoRepository
+            MatriculaEntityMapper matriculaEntityMapper
     ) {
-        return new RepositorioMatriculaJpa(matriculaRepository, matriculaEntityMapper, alunoRepository, cursoRepository);
+        return new RepositorioMatriculaJpa(matriculaRepository, matriculaEntityMapper);
     }
 
     @Bean

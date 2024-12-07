@@ -10,22 +10,16 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
 
     private final MatriculaRepository repositorio;
     private final MatriculaEntityMapper mapper;
-    private final AlunoRepository alunoRepository;
-    private final CursoRepository cursoRepository;
 
     public RepositorioMatriculaJpa(MatriculaRepository repositorio,
-                                   MatriculaEntityMapper mapper, AlunoRepository alunoRepository, CursoRepository cursoRepository) {
+                                   MatriculaEntityMapper mapper) {
         this.repositorio = repositorio;
         this.mapper = mapper;
-        this.alunoRepository = alunoRepository;
-        this.cursoRepository = cursoRepository;
     }
 
     @Override
-    public Matricula cadastrarMatricula(Long alunoId, Long cursoId) {
-        AlunoEntity alunoEntity = alunoRepository.getReferenceById(alunoId);
-        CursoEntity cursoEntity = cursoRepository.getReferenceById(cursoId);
-        MatriculaEntity matriculaEntity = new MatriculaEntity(alunoEntity, cursoEntity);
+    public Matricula cadastrarMatricula(Matricula matricula) {
+        MatriculaEntity matriculaEntity = mapper.toEntity(matricula);
         repositorio.save(matriculaEntity);
         return mapper.toDomain(matriculaEntity);
     }

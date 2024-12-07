@@ -6,6 +6,9 @@ public class Matricula {
     private Curso curso;
 
     public Matricula(Aluno aluno, Curso curso) {
+        if (curso.getVagas() <= 0) {
+            throw new IllegalArgumentException("Curso não possui vaga disponível!");
+        }
         this.aluno = aluno;
         this.curso = curso;
     }

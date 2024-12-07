@@ -26,6 +26,14 @@ public class AlunoEntity {
         this.email = aluno.getEmail();
     }
 
+    public AlunoEntity(Long id, String cpf, String nome, LocalDate nascimento, String email) {
+        this.id = id;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

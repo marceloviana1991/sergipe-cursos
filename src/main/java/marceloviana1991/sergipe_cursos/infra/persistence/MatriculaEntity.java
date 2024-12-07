@@ -17,9 +17,6 @@ public class MatriculaEntity {
     public MatriculaEntity() {}
 
     public MatriculaEntity(AlunoEntity aluno, CursoEntity curso) {
-        if (curso.getVagas() == 0) {
-            throw new IllegalArgumentException("Curso não possui vaga disponível!");
-        }
         curso.preencherVaga();
         this.aluno = aluno;
         this.curso = curso;
