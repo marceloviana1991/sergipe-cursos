@@ -1,7 +1,7 @@
 package marceloviana1991.sergipe_cursos.infra.gateways;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
-import marceloviana1991.sergipe_cursos.domain.entities.Aluno;
+import marceloviana1991.sergipe_cursos.domain.Aluno;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
 
@@ -39,6 +39,13 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
     @Override
     public void excluirAluno(Long id) {
         repositorio.deleteById(id);
+    }
+
+    @Override
+    public Aluno atualizarAluno(Long id, Aluno aluno) {
+        AlunoEntity entity = repositorio.getReferenceById(id);
+        entity.atualizar(aluno);
+        return mapper.toDomain(entity);
     }
 
 

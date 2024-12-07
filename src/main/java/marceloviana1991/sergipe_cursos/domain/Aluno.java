@@ -1,5 +1,6 @@
-package marceloviana1991.sergipe_cursos.domain.entities;
+package marceloviana1991.sergipe_cursos.domain;
 
+import marceloviana1991.sergipe_cursos.infra.controller.AlunoDto;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
 
 import java.time.LocalDate;
@@ -30,6 +31,13 @@ public class Aluno {
         this.nome = entity.getNome();
         this.nascimento = entity.getNascimento();
         this.email = entity.getEmail();
+    }
+
+    public Aluno(AlunoDto alunoDto) {
+        this.cpf = alunoDto.cpf();
+        this.nome = alunoDto.nome();
+        this.nascimento = alunoDto.nascimento();
+        this.email = alunoDto.email();
     }
 
     public String getCpf() {

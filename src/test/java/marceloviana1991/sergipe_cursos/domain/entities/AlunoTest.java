@@ -1,5 +1,6 @@
 package marceloviana1991.sergipe_cursos.domain.entities;
 
+import marceloviana1991.sergipe_cursos.domain.Aluno;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

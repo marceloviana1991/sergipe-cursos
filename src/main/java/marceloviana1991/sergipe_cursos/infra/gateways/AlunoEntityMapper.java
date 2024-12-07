@@ -1,6 +1,6 @@
 package marceloviana1991.sergipe_cursos.infra.gateways;
 
-import marceloviana1991.sergipe_cursos.domain.entities.Aluno;
+import marceloviana1991.sergipe_cursos.domain.Aluno;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
 
 public class AlunoEntityMapper {

@@ -1,7 +1,7 @@
 package marceloviana1991.sergipe_cursos.infra.persistence;
 
 import jakarta.persistence.*;
-import marceloviana1991.sergipe_cursos.domain.entities.Aluno;
+import marceloviana1991.sergipe_cursos.domain.Aluno;
 
 import java.time.LocalDate;
 
@@ -20,7 +20,6 @@ public class AlunoEntity {
     public AlunoEntity() {}
 
     public AlunoEntity(Aluno aluno) {
-        this.email = aluno.getEmail();
         this.cpf = aluno.getCpf();
         this.nome = aluno.getNome();
         this.nascimento = aluno.getNascimento();
@@ -67,4 +66,10 @@ public class AlunoEntity {
         this.email = email;
     }
 
+    public void atualizar(Aluno aluno) {
+        if (aluno.getCpf() != null) {this.cpf = aluno.getCpf();}
+        if (aluno.getNome() != null) {this.nome = aluno.getNome();}
+        if (aluno.getNascimento() != null) {this.nascimento = aluno.getNascimento();}
+        if (aluno.getEmail() != null) {this.email = aluno.getEmail();}
+    }
 }

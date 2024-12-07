@@ -47,6 +47,7 @@ http://localhost:8080/alunos
 | GET | listarAlunos | |  application/json | |
 | GET | detalharAluno  | | application/json | ```{id}``` |
 | DELETE | excluirAluno |  | | ```{id}```  |
+| PUT | atualizarAluno | application/json | application/json | ```{id}```  |
 
 
 ### Body Content

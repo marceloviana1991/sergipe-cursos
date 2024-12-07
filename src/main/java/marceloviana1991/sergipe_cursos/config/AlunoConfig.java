@@ -1,10 +1,7 @@
 package marceloviana1991.sergipe_cursos.config;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
-import marceloviana1991.sergipe_cursos.application.usecases.CadastroAluno;
-import marceloviana1991.sergipe_cursos.application.usecases.DetalhamentoAluno;
-import marceloviana1991.sergipe_cursos.application.usecases.ExclusaoAluno;
-import marceloviana1991.sergipe_cursos.application.usecases.ListagemAluno;
+import marceloviana1991.sergipe_cursos.application.usecases.*;
 import marceloviana1991.sergipe_cursos.infra.gateways.AlunoEntityMapper;
 import marceloviana1991.sergipe_cursos.infra.gateways.RepositorioAlunoJpa;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
@@ -32,6 +29,11 @@ public class AlunoConfig {
     @Bean
     public ExclusaoAluno excuirAluno(RepositorioAluno repositorioAluno) {
         return new ExclusaoAluno(repositorioAluno);
+    }
+
+    @Bean
+    public AtualizacaoAluno atualizarAluno(RepositorioAluno repositorioAluno) {
+        return new AtualizacaoAluno(repositorioAluno);
     }
 
     @Bean

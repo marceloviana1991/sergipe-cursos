@@ -1,7 +1,7 @@
 package marceloviana1991.sergipe_cursos.application.usecases;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
-import marceloviana1991.sergipe_cursos.domain.entities.Aluno;
+import marceloviana1991.sergipe_cursos.domain.Aluno;
 
 public class DetalhamentoAluno {
 
