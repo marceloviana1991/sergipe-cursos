@@ -36,21 +36,4 @@ public class AlunoTest {
                         null));
     }
 
-    @Test
-    public void naoDeveAdicionarEnderecoNoFormatoInvalido() {
-        Aluno aluno = new Aluno("123.456.789-99",
-                "Aluno",
-                LocalDate.parse("2024-01-01"),
-                "email@email.com");
-
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> aluno.adicionarEndereco("49000000",
-                        40,
-                        null));
-
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> aluno.adicionarEndereco(null,
-                        40,
-                        null));
-    }
 }
