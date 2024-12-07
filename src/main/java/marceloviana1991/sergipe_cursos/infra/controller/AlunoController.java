@@ -31,7 +31,8 @@ public class AlunoController {
     @PostMapping
     @Transactional
     public AlunoDto cadastrarAluno(@RequestBody AlunoDto alunoDto) {
-        Aluno aluno = cadastroAluno.cadastrarAluno(new Aluno(alunoDto));
+        Aluno aluno = cadastroAluno.cadastrarAluno(new Aluno(
+                alunoDto.cpf(), alunoDto.nome(), alunoDto.nascimento(), alunoDto.email()));
         return new AlunoDto(aluno);
     }
 
@@ -59,7 +60,9 @@ public class AlunoController {
     @PutMapping("{id}")
     @Transactional
     public AlunoDto atualizarAluno(@PathVariable Long id, @RequestBody AlunoDto alunoDto) {
-        Aluno aluno = atualizacaoAluno.atualizarAluno(id, new Aluno(alunoDto));
+        Aluno aluno = atualizacaoAluno.atualizarAluno(id, new Aluno(
+                alunoDto.cpf(), alunoDto.nome(), alunoDto.nascimento(), alunoDto.email()
+        ));
         return new AlunoDto(aluno);
     }
 }

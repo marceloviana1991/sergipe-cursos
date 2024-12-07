@@ -10,6 +10,6 @@ public class AlunoEntityMapper {
     }
 
     public Aluno toDomain(AlunoEntity entity) {
-        return new Aluno(entity);
+        return new Aluno(entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
     }
 }

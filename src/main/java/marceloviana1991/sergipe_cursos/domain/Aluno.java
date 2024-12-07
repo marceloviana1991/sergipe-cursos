@@ -1,8 +1,5 @@
 package marceloviana1991.sergipe_cursos.domain;
 
-import marceloviana1991.sergipe_cursos.infra.controller.AlunoDto;
-import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
-
 import java.time.LocalDate;
 
 public class Aluno {
@@ -12,27 +9,30 @@ public class Aluno {
     private LocalDate nascimento;
     private String email;
 
-    public Aluno(AlunoEntity entity) {
-        this.id = entity.getId();
-        this.cpf = entity.getCpf();
-        this.nome = entity.getNome();
-        this.nascimento = entity.getNascimento();
-        this.email = entity.getEmail();
-    }
-
-    public Aluno(AlunoDto alunoDto) {
-        if (alunoDto.cpf() == null || !alunoDto.cpf().matches("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}")) {
+    public Aluno(String cpf, String nome, LocalDate nascimento, String email) {
+        if (cpf == null || !cpf.matches("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}")) {
             throw new IllegalArgumentException("Cpf no padrão incorreto!");
         }
-        if (alunoDto.email() == null ||
-                !alunoDto.email().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+        if (email == null || !email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             throw new IllegalArgumentException("email no padrão incorreto!");
         }
-        this.cpf = alunoDto.cpf();
-        this.nome = alunoDto.nome();
-        this.nascimento = alunoDto.nascimento();
-        this.email = alunoDto.email();
+        this.cpf = cpf;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.email = email;
     }
+
+    public Aluno(Long id, String cpf, String nome, LocalDate nascimento, String email) {
+        this.id = id;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.email = email;
+    }
+
+    public Aluno() {
+    }
+
 
     public String getCpf() {
         return cpf;
