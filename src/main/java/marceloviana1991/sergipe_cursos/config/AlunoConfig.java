@@ -37,8 +37,8 @@ public class AlunoConfig {
     }
 
     @Bean
-    public RepositorioAlunoJpa repositorioAlunoJpa(AlunoRepository repository, AlunoEntityMapper mapper) {
-        return new RepositorioAlunoJpa(repository, mapper);
+    public RepositorioAlunoJpa repositorioAlunoJpa(AlunoRepository repository) {
+        return new RepositorioAlunoJpa(repository);
     }
 
     @Bean

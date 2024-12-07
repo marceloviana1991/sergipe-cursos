@@ -1,8 +1,9 @@
 package marceloviana1991.sergipe_cursos.infra.controller;
 
 import jakarta.transaction.Transactional;
+import marceloviana1991.sergipe_cursos.application.dto.curso.CursoRequestDto;
+import marceloviana1991.sergipe_cursos.application.dto.curso.CursoResponseDto;
 import marceloviana1991.sergipe_cursos.application.usecases.curso.*;
-import marceloviana1991.sergipe_cursos.domain.Curso;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,26 +33,18 @@ public class CursoController {
 
     @PostMapping
     @Transactional
-    public CursoDto cadastrarCurso(@RequestBody CursoDto cursoDto) {
-        Curso curso = cadastroCurso.cadastrarCurso(new Curso(
-                cursoDto.nome(), cursoDto.descricao(), cursoDto.vagas()
-        ));
-        return new CursoDto(curso);
+    public CursoResponseDto cadastrarCurso(@RequestBody CursoRequestDto requestDto) {
+        return cadastroCurso.cadastrarCurso(requestDto);
     }
 
     @GetMapping
-    public List<CursoDto> listarCursos() {
-        List<Curso> cursoList = listagemCurso.listarCursos();
-        return cursoList
-                .stream()
-                .map(CursoDto::new)
-                .toList();
+    public List<CursoResponseDto> listarCursos() {
+        return listagemCurso.listarCursos();
     }
 
     @GetMapping("{id}")
-    public CursoDto detalharCurso(@PathVariable Long id) {
-        Curso curso = detalhamentoCurso.detalharCurso(id);
-        return new CursoDto(curso);
+    public CursoResponseDto detalharCurso(@PathVariable Long id) {
+        return detalhamentoCurso.detalharCurso(id);
     }
 
     @DeleteMapping("{id}")
@@ -62,10 +55,7 @@ public class CursoController {
 
     @PutMapping("{id}")
     @Transactional
-    public CursoDto atualizarCurso(@PathVariable Long id, @RequestBody CursoDto cursoDto) {
-        Curso curso = atualizacaoCurso.atualizarCurso(id, new Curso(
-                cursoDto.nome(), cursoDto.descricao(), cursoDto.vagas()
-        ));
-        return new CursoDto(curso);
+    public CursoResponseDto atualizarCurso(@PathVariable Long id, @RequestBody CursoRequestDto requestDto) {
+        return atualizacaoCurso.atualizarCurso(id, requestDto);
     }
 }

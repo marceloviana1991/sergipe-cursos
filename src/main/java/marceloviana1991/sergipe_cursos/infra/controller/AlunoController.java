@@ -1,8 +1,9 @@
 package marceloviana1991.sergipe_cursos.infra.controller;
 
 import jakarta.transaction.Transactional;
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoRequestDto;
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.usecases.aluno.*;
-import marceloviana1991.sergipe_cursos.domain.Aluno;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,25 +31,18 @@ public class AlunoController {
 
     @PostMapping
     @Transactional
-    public AlunoDto cadastrarAluno(@RequestBody AlunoDto alunoDto) {
-        Aluno aluno = cadastroAluno.cadastrarAluno(new Aluno(
-                alunoDto.cpf(), alunoDto.nome(), alunoDto.nascimento(), alunoDto.email()));
-        return new AlunoDto(aluno);
+    public AlunoResponseDto cadastrarAluno(@RequestBody AlunoRequestDto requestDto) {
+        return cadastroAluno.cadastrarAluno(requestDto);
     }
 
     @GetMapping
-    public List<AlunoDto> listarAlunos() {
-        List<Aluno> alunoList = listagemAluno.listarAlunos();
-        return alunoList
-                .stream()
-                .map(AlunoDto::new)
-                .toList();
+    public List<AlunoResponseDto> listarAlunos() {
+        return listagemAluno.listarAlunos();
     }
 
     @GetMapping("{id}")
-    public AlunoDto detatlharAluno(@PathVariable Long id) {
-        Aluno aluno = detalhamentoAluno.detalharAluno(id);
-        return new AlunoDto(aluno);
+    public AlunoResponseDto detatlharAluno(@PathVariable Long id) {
+        return detalhamentoAluno.detalharAluno(id);
     }
 
     @DeleteMapping("{id}")
@@ -59,10 +53,7 @@ public class AlunoController {
 
     @PutMapping("{id}")
     @Transactional
-    public AlunoDto atualizarAluno(@PathVariable Long id, @RequestBody AlunoDto alunoDto) {
-        Aluno aluno = atualizacaoAluno.atualizarAluno(id, new Aluno(
-                alunoDto.cpf(), alunoDto.nome(), alunoDto.nascimento(), alunoDto.email()
-        ));
-        return new AlunoDto(aluno);
+    public AlunoResponseDto atualizarAluno(@PathVariable Long id, @RequestBody AlunoRequestDto requestDto) {
+        return atualizacaoAluno.atualizarAluno(id, requestDto);
     }
 }

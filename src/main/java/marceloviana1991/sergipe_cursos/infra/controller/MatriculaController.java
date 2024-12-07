@@ -1,6 +1,8 @@
 package marceloviana1991.sergipe_cursos.infra.controller;
 
 import jakarta.transaction.Transactional;
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
+import marceloviana1991.sergipe_cursos.application.dto.curso.CursoResponseDto;
 import marceloviana1991.sergipe_cursos.application.usecases.aluno.DetalhamentoAluno;
 import marceloviana1991.sergipe_cursos.application.usecases.curso.DetalhamentoCurso;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.CadastroMatricula;
@@ -33,8 +35,10 @@ public class MatriculaController {
     @PostMapping
     @Transactional
     public MatriculaDto cadastrarMatricula(@RequestBody MatriculaDto matriculaDto) {
-        Aluno aluno = detalhamentoAluno.detalharAluno(matriculaDto.alunoId());
-        Curso curso = detalhamentoCurso.detalharCurso(matriculaDto.cursoId());
+        AlunoResponseDto alunoResponseDto = detalhamentoAluno.detalharAluno(matriculaDto.alunoId());
+        Aluno aluno = new Aluno(alunoResponseDto.cpf(), alunoResponseDto.nome(), alunoResponseDto.nascimento(), alunoResponseDto.email());
+        CursoResponseDto cursoResponseDto = detalhamentoCurso.detalharCurso(matriculaDto.cursoId());
+        Curso curso = new Curso(cursoResponseDto.nome(), cursoResponseDto.descricao(), cursoResponseDto.vagas());
         Matricula matricula = cadastroMatricula.cadastrarMatricula(new Matricula(aluno, curso));
         return new MatriculaDto(matricula.getId(), aluno.getId(), curso.getId());
     }

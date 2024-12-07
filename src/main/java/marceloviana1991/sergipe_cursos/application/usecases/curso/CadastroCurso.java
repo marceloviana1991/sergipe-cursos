@@ -1,5 +1,7 @@
 package marceloviana1991.sergipe_cursos.application.usecases.curso;
 
+import marceloviana1991.sergipe_cursos.application.dto.curso.CursoRequestDto;
+import marceloviana1991.sergipe_cursos.application.dto.curso.CursoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioCurso;
 import marceloviana1991.sergipe_cursos.domain.Curso;
 
@@ -11,7 +13,7 @@ public class CadastroCurso {
         this.repositorio = repositorio;
     }
 
-    public Curso cadastrarCurso (Curso curso) {
-        return repositorio.cadastrarCurso(curso);
+    public CursoResponseDto cadastrarCurso (CursoRequestDto requestDto) {
+        return repositorio.cadastrarCurso(requestDto);
     }
 }

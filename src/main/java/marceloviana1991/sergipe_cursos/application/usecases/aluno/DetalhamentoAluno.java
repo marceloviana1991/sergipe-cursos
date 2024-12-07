@@ -1,7 +1,7 @@
 package marceloviana1991.sergipe_cursos.application.usecases.aluno;
 
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
-import marceloviana1991.sergipe_cursos.domain.Aluno;
 
 public class DetalhamentoAluno {
 
@@ -11,7 +11,7 @@ public class DetalhamentoAluno {
         this.repositorio = repositorio;
     }
 
-    public Aluno detalharAluno(Long id) {
+    public AlunoResponseDto detalharAluno(Long id) {
         return repositorio.detalharAluno(id);
     }
 }

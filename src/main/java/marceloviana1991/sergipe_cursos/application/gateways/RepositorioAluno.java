@@ -1,13 +1,14 @@
 package marceloviana1991.sergipe_cursos.application.gateways;
 
-import marceloviana1991.sergipe_cursos.domain.Aluno;
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoRequestDto;
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 
 import java.util.List;
 
 public interface RepositorioAluno {
-    Aluno cadastrarAluno(Aluno aluno);
-    List<Aluno> listarAlunos();
-    Aluno detalharAluno(Long id);
+    AlunoResponseDto cadastrarAluno(AlunoRequestDto requestDto);
+    List<AlunoResponseDto> listarAlunos();
+    AlunoResponseDto detalharAluno(Long id);
     void excluirAluno(Long id);
-    Aluno atualizarAluno(Long id, Aluno aluno);
+    AlunoResponseDto atualizarAluno(Long id, AlunoRequestDto requestDto);
 }

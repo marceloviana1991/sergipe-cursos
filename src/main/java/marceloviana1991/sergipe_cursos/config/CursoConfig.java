@@ -37,8 +37,8 @@ public class CursoConfig {
     }
 
     @Bean
-    public RepositorioCursoJpa repositorioCursoJpa(CursoRepository cursoRepository, CursoEntityMapper cursoEntityMapper) {
-        return new RepositorioCursoJpa(cursoRepository, cursoEntityMapper);
+    public RepositorioCursoJpa repositorioCursoJpa(CursoRepository cursoRepository) {
+        return new RepositorioCursoJpa(cursoRepository);
     }
 
     @Bean

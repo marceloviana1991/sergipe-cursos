@@ -1,6 +1,8 @@
 package marceloviana1991.sergipe_cursos.infra.gateways;
 
 
+import marceloviana1991.sergipe_cursos.application.dto.curso.CursoRequestDto;
+import marceloviana1991.sergipe_cursos.application.dto.curso.CursoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioCurso;
 import marceloviana1991.sergipe_cursos.domain.Curso;
 import marceloviana1991.sergipe_cursos.infra.persistence.CursoEntity;
@@ -11,31 +13,38 @@ import java.util.List;
 public class RepositorioCursoJpa implements RepositorioCurso {
 
     private final CursoRepository repositorio;
-    private final CursoEntityMapper mapper;
 
-    public RepositorioCursoJpa(CursoRepository repositorio, CursoEntityMapper mapper) {
+    public RepositorioCursoJpa(CursoRepository repositorio) {
         this.repositorio = repositorio;
-        this.mapper = mapper;
     }
 
 
     @Override
-    public Curso cadastrarCurso(Curso curso) {
-        CursoEntity entity = mapper.toEntity(curso);
+    public CursoResponseDto cadastrarCurso(CursoRequestDto requestDto) {
+        Curso curso = new Curso(requestDto.nome(), requestDto.descricao(), requestDto.vagas());
+        CursoEntity entity = new CursoEntity(curso);
         repositorio.save(entity);
-        return mapper.toDomain(entity);
+        return new CursoResponseDto(
+                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()
+        );
     }
 
     @Override
-    public List<Curso> listarCursos() {
+    public List<CursoResponseDto> listarCursos() {
         List<CursoEntity> entityList = repositorio.findAll();
-        return entityList.stream().map(mapper::toDomain).toList();
+        return entityList
+                .stream()
+                .map(entity -> new CursoResponseDto(
+                                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()))
+                .toList();
     }
 
     @Override
-    public Curso detalharCurso(Long id) {
+    public CursoResponseDto detalharCurso(Long id) {
         CursoEntity entity = repositorio.getReferenceById(id);
-        return mapper.toDomain(entity);
+        return new CursoResponseDto(
+                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()
+        );
     }
 
     @Override
@@ -44,9 +53,12 @@ public class RepositorioCursoJpa implements RepositorioCurso {
     }
 
     @Override
-    public Curso atualizarCurso(Long id, Curso curso) {
+    public CursoResponseDto atualizarCurso(Long id, CursoRequestDto requestDto) {
+        Curso curso = new Curso(requestDto.nome(), requestDto.descricao(), requestDto.vagas());
         CursoEntity entity = repositorio.getReferenceById(id);
         entity.atualizar(curso);
-        return mapper.toDomain(entity);
+        return new CursoResponseDto(
+                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()
+        );
     }
 }

@@ -1,5 +1,7 @@
 package marceloviana1991.sergipe_cursos.infra.gateways;
 
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoRequestDto;
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 import marceloviana1991.sergipe_cursos.domain.Aluno;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
@@ -10,30 +12,41 @@ import java.util.List;
 public class RepositorioAlunoJpa implements RepositorioAluno {
 
     private final AlunoRepository repositorio;
-    private final AlunoEntityMapper mapper;
 
-    public RepositorioAlunoJpa(AlunoRepository repositorio, AlunoEntityMapper mapper) {
+    public RepositorioAlunoJpa(AlunoRepository repositorio) {
         this.repositorio = repositorio;
-        this.mapper = mapper;
     }
 
+
     @Override
-    public Aluno cadastrarAluno(Aluno aluno) {
-        AlunoEntity entity = mapper.toEntity(aluno);
+    public AlunoResponseDto cadastrarAluno(AlunoRequestDto requestDto) {
+        Aluno aluno = new Aluno(requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
+        AlunoEntity entity = new AlunoEntity(aluno);
         repositorio.save(entity);
-        return mapper.toDomain(entity);
+        return new AlunoResponseDto(
+                entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
     }
 
     @Override
-    public List<Aluno> listarAlunos() {
+    public List<AlunoResponseDto> listarAlunos() {
         List<AlunoEntity> entityList = repositorio.findAll();
-        return entityList.stream().map(mapper::toDomain).toList();
+        return entityList
+                .stream()
+                .map(entity -> new AlunoResponseDto(
+                        entity.getId(),
+                        entity.getCpf(),
+                        entity.getNome(),
+                        entity.getNascimento(),
+                        entity.getEmail()
+                ))
+                .toList();
     }
 
     @Override
-    public Aluno detalharAluno(Long id) {
+    public AlunoResponseDto detalharAluno(Long id) {
         AlunoEntity entity = repositorio.getReferenceById(id);
-        return mapper.toDomain(entity);
+        return new AlunoResponseDto(
+                entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
     }
 
     @Override
@@ -42,10 +55,12 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
     }
 
     @Override
-    public Aluno atualizarAluno(Long id, Aluno aluno) {
+    public AlunoResponseDto atualizarAluno(Long id, AlunoRequestDto requestDto) {
         AlunoEntity entity = repositorio.getReferenceById(id);
+        Aluno aluno = new Aluno(requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
         entity.atualizar(aluno);
-        return mapper.toDomain(entity);
+        return new AlunoResponseDto(
+                entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
     }
 
 

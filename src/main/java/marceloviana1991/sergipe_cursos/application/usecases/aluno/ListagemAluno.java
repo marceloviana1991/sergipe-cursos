@@ -1,7 +1,7 @@
 package marceloviana1991.sergipe_cursos.application.usecases.aluno;
 
+import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
-import marceloviana1991.sergipe_cursos.domain.Aluno;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class ListagemAluno {
         this.repositorio = repositorio;
     }
 
-    public List<Aluno> listarAlunos() {
+    public List<AlunoResponseDto> listarAlunos() {
         return repositorio.listarAlunos();
     }
 }
