@@ -2,7 +2,6 @@ package marceloviana1991.sergipe_cursos.config;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioCurso;
 import marceloviana1991.sergipe_cursos.application.usecases.curso.*;
-import marceloviana1991.sergipe_cursos.infra.gateways.CursoEntityMapper;
 import marceloviana1991.sergipe_cursos.infra.gateways.RepositorioCursoJpa;
 import marceloviana1991.sergipe_cursos.infra.persistence.CursoRepository;
 import org.springframework.context.annotation.Bean;
@@ -41,9 +40,5 @@ public class CursoConfig {
         return new RepositorioCursoJpa(cursoRepository);
     }
 
-    @Bean
-    public CursoEntityMapper cursoEntityMapper() {
-        return new CursoEntityMapper();
-    }
 
 }

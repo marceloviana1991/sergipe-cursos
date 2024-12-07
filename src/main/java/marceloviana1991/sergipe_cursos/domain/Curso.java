@@ -12,13 +12,6 @@ public class Curso {
         this.vagas = vagas;
     }
 
-    public Curso(Long id, String nome, String descricao, Integer vagas) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.vagas = vagas;
-    }
-
     public Long getId() {
         return id;
     }

@@ -2,7 +2,6 @@ package marceloviana1991.sergipe_cursos.domain.entities;
 
 import marceloviana1991.sergipe_cursos.domain.Aluno;
 import marceloviana1991.sergipe_cursos.domain.Curso;
-import marceloviana1991.sergipe_cursos.domain.Matricula;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

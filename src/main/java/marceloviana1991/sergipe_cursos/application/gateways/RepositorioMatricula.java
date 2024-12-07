@@ -1,10 +1,11 @@
 package marceloviana1991.sergipe_cursos.application.gateways;
 
-import marceloviana1991.sergipe_cursos.domain.Matricula;
+import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaRequestDto;
+import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaResponseDto;
 
 import java.util.List;
 
 public interface RepositorioMatricula {
-    Matricula cadastrarMatricula(Matricula matricula);
-    List<Matricula> listarMatriculas();
+    MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto);
+    List<MatriculaResponseDto> listarMatriculas();
 }

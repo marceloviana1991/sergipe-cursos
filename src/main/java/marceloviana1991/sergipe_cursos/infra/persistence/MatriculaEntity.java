@@ -1,7 +1,6 @@
 package marceloviana1991.sergipe_cursos.infra.persistence;
 
 import jakarta.persistence.*;
-import marceloviana1991.sergipe_cursos.domain.Matricula;
 
 @Entity
 @Table(name = "Matriculas")
@@ -17,6 +16,9 @@ public class MatriculaEntity {
     public MatriculaEntity() {}
 
     public MatriculaEntity(AlunoEntity aluno, CursoEntity curso) {
+        if (curso.getVagas() <= 0) {
+            throw new IllegalArgumentException("Curso não possui vaga disponível!");
+        }
         curso.preencherVaga();
         this.aluno = aluno;
         this.curso = curso;

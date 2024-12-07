@@ -22,13 +22,6 @@ public class Aluno {
         this.email = email;
     }
 
-    public Aluno(Long id, String cpf, String nome, LocalDate nascimento, String email) {
-        this.id = id;
-        this.cpf = cpf;
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.email = email;
-    }
 
     public Aluno() {
     }
