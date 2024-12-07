@@ -53,20 +53,20 @@ http://localhost:8080/alunos
 ```
 Resquest
 {
-    "cpf": "String",
+    "cpf": "String (ddd.ddd.ddd-dd)",
     "nome": "String",
     "nascimento": "String (YYYY-MM-DD)",
-    "email": "String"
+    "email": "String (máscara padrão de email)"
 }
 ```
 ```
 Response
 {
     "id": Long,
-    "cpf": "String",
+    "cpf": "String (ddd.ddd.ddd-dd)",
     "nome": "String",
-    "nascimento": "YYYY-MM-DD",
-    "email": "String"
+    "nascimento": "String (YYYY-MM-DD)",
+    "email": "String (máscara padrão de email)"
 }
 ```
 
