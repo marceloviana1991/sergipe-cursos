@@ -1,7 +1,7 @@
 package marceloviana1991.sergipe_cursos.config;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
-import marceloviana1991.sergipe_cursos.application.usecases.*;
+import marceloviana1991.sergipe_cursos.application.usecases.aluno.*;
 import marceloviana1991.sergipe_cursos.infra.gateways.AlunoEntityMapper;
 import marceloviana1991.sergipe_cursos.infra.gateways.RepositorioAlunoJpa;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
@@ -37,7 +37,7 @@ public class AlunoConfig {
     }
 
     @Bean
-    public RepositorioAlunoJpa cadastrarAlunoJpa(AlunoRepository repository, AlunoEntityMapper mapper) {
+    public RepositorioAlunoJpa repositorioAlunoJpa(AlunoRepository repository, AlunoEntityMapper mapper) {
         return new RepositorioAlunoJpa(repository, mapper);
     }
 

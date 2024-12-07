@@ -72,3 +72,44 @@ Response
 ```
 
 
+## Cursos
+
+Recurso responsável pelo registro de dados dos cursos ofertados
+
+
+### URL base para chamadas
+
+```
+http://localhost:8080/cursos
+```
+
+
+### Endpoints
+
+| Método | Nome do endpoint |Body Request | Body Response | Path Variable
+|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------------------|
+| POST | cadastrarCurso |application/json | application/json | |
+| GET | listarCursos | |  application/json | |
+| GET | detalharCurso  | | application/json | ```{id}``` |
+| DELETE | excluirCurso |  | | ```{id}```  |
+| PUT | atualizarCurso | application/json | application/json | ```{id}```  |
+
+
+### Body Content
+```
+Resquest
+{
+    "nome": "String",
+    "descricao": "String",
+    "vagas": Integer
+}
+```
+```
+Response
+{
+    "id": Long,
+    "nome": "String",
+    "descricao": "String",
+    "vagas": Integer
+}
+```

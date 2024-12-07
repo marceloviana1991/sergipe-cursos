@@ -1,4 +1,4 @@
-package marceloviana1991.sergipe_cursos.application.usecases;
+package marceloviana1991.sergipe_cursos.application.usecases.aluno;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 

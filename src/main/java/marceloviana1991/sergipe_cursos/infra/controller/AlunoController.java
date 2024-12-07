@@ -1,7 +1,7 @@
 package marceloviana1991.sergipe_cursos.infra.controller;
 
 import jakarta.transaction.Transactional;
-import marceloviana1991.sergipe_cursos.application.usecases.*;
+import marceloviana1991.sergipe_cursos.application.usecases.aluno.*;
 import marceloviana1991.sergipe_cursos.domain.Aluno;
 import org.springframework.web.bind.annotation.*;
 
