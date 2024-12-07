@@ -7,4 +7,6 @@ import java.util.List;
 public interface RepositorioAluno {
     Aluno cadastrarAluno(Aluno aluno);
     List<Aluno> listarAlunos();
+    Aluno detalharAluno(Long id);
+    void excluirAluno(Long id);
 }
