@@ -2,7 +2,7 @@ package marceloviana1991.sergipe_cursos.config;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 import marceloviana1991.sergipe_cursos.application.usecases.aluno.*;
-import marceloviana1991.sergipe_cursos.infra.gateways.RepositorioAlunoJpa;
+import marceloviana1991.sergipe_cursos.infra.gateways.jpa.RepositorioAlunoJpa;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

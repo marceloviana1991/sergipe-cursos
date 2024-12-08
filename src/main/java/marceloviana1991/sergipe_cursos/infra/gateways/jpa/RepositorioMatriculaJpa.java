@@ -1,4 +1,4 @@
-package marceloviana1991.sergipe_cursos.infra.gateways;
+package marceloviana1991.sergipe_cursos.infra.gateways.jpa;
 
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaResponseDto;

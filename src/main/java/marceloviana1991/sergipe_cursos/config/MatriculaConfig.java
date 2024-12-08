@@ -3,7 +3,7 @@ package marceloviana1991.sergipe_cursos.config;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioMatricula;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.CadastroMatricula;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.ListagemMatricula;
-import marceloviana1991.sergipe_cursos.infra.gateways.*;
+import marceloviana1991.sergipe_cursos.infra.gateways.jpa.RepositorioMatriculaJpa;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
 import marceloviana1991.sergipe_cursos.infra.persistence.CursoRepository;
 import marceloviana1991.sergipe_cursos.infra.persistence.MatriculaRepository;
