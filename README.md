@@ -154,3 +154,23 @@ Response
 ```
 
 
+# Guia de Início Rápido
+
+*Requerimentos do projeto Sergipe Cursos*
+
+- Java versão 21
+- SGBD Postgresql (versão compatível com Spring Boot 3.4.0)
+- Maven (versão compatível com Spring Boot 3.4.0)
+
+
+*Variáveis de ambiente para configuração de conexão com SGBD*
+
+- DB_HOST
+- DB_DOOR
+- USER_NAME_DB
+- PASSWORD_DB
+
+
+
+
+
