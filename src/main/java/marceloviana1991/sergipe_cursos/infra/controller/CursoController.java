@@ -34,7 +34,7 @@ public class CursoController {
     @PostMapping
     @Transactional
     public CursoResponseDto cadastrarCurso(@RequestBody CursoRequestDto requestDto) {
-        return cadastroCurso.cadastrarCurso(requestDto);
+        return cadastroCurso.cadastrarCurso(requestDto.nome(), requestDto.descricao(), requestDto.vagas());
     }
 
     @GetMapping
@@ -43,19 +43,19 @@ public class CursoController {
     }
 
     @GetMapping("{id}")
-    public CursoResponseDto detalharCurso(@PathVariable Long id) {
+    public CursoResponseDto detalharCurso(@PathVariable String id) {
         return detalhamentoCurso.detalharCurso(id);
     }
 
     @DeleteMapping("{id}")
     @Transactional
-    public void excluiCurso(@PathVariable Long id) {
+    public void excluiCurso(@PathVariable String id) {
         exclusaoCurso.excluirCurso(id);
     }
 
     @PutMapping("{id}")
     @Transactional
-    public CursoResponseDto atualizarCurso(@PathVariable Long id, @RequestBody CursoRequestDto requestDto) {
-        return atualizacaoCurso.atualizarCurso(id, requestDto);
+    public CursoResponseDto atualizarCurso(@PathVariable String id, @RequestBody CursoRequestDto requestDto) {
+        return atualizacaoCurso.atualizarCurso(id, requestDto.nome(), requestDto.descricao(), requestDto.vagas());
     }
 }

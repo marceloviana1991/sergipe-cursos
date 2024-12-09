@@ -1,14 +1,13 @@
 package marceloviana1991.sergipe_cursos.application.gateways;
 
-import marceloviana1991.sergipe_cursos.application.dto.curso.CursoRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.curso.CursoResponseDto;
 
 import java.util.List;
 
 public interface RepositorioCurso {
-    CursoResponseDto cadastrarCurso(CursoRequestDto requestDto);
+    CursoResponseDto cadastrarCurso(String nome, String descricao, Integer vagas);
     List<CursoResponseDto> listarCursos();
-    CursoResponseDto detalharCurso(Long id);
-    void excluirCurso(Long id);
-    CursoResponseDto atualizarCurso(Long id, CursoRequestDto requestDto);
+    CursoResponseDto detalharCurso(String id);
+    void excluirCurso(String id);
+    CursoResponseDto atualizarCurso(String id, String nome, String descricao, Integer vagas);
 }

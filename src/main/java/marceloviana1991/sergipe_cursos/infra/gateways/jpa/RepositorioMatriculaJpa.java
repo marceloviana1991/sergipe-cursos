@@ -3,6 +3,7 @@ package marceloviana1991.sergipe_cursos.infra.gateways.jpa;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioMatricula;
+import marceloviana1991.sergipe_cursos.domain.Matricula;
 import marceloviana1991.sergipe_cursos.infra.persistence.*;
 
 import java.util.List;
@@ -24,7 +25,14 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
     public MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto) {
         AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
         CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
-        MatriculaEntity matriculaEntity = new MatriculaEntity(alunoEntity, cursoEntity);
+        List<MatriculaEntity> matriculaEntityList = repositorio.findAllByAluno(alunoEntity);
+        List<String> idsDosAlunosJaMatriculados = matriculaEntityList
+                .stream().map(entity -> entity.getAluno().getId()).toList();
+        Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId(), idsDosAlunosJaMatriculados ,
+                cursoEntity.getVagas());
+
+        MatriculaEntity matriculaEntity = new MatriculaEntity(
+                matricula.getUuid().toString(), alunoEntity, cursoEntity);
         repositorio.save(matriculaEntity);
         return new MatriculaResponseDto(
                 matriculaEntity.getId(), matriculaEntity.getAluno().getId(), matriculaEntity.getCurso().getId());

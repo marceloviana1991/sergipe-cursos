@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "Matriculas")
 public class MatriculaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @ManyToOne
     private AlunoEntity aluno;
     @ManyToOne
@@ -15,20 +14,18 @@ public class MatriculaEntity {
 
     public MatriculaEntity() {}
 
-    public MatriculaEntity(AlunoEntity aluno, CursoEntity curso) {
-        if (curso.getVagas() <= 0) {
-            throw new IllegalArgumentException("Curso não possui vaga disponível!");
-        }
+    public MatriculaEntity(String id, AlunoEntity aluno, CursoEntity curso) {
         curso.preencherVaga();
+        this.id = id;
         this.aluno = aluno;
         this.curso = curso;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

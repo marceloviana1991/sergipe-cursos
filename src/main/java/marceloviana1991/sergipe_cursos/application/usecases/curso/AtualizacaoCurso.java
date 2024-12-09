@@ -1,6 +1,5 @@
 package marceloviana1991.sergipe_cursos.application.usecases.curso;
 
-import marceloviana1991.sergipe_cursos.application.dto.curso.CursoRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.curso.CursoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioCurso;
 
@@ -12,7 +11,7 @@ public class AtualizacaoCurso {
         this.repositorio = repositorio;
     }
 
-    public CursoResponseDto atualizarCurso(Long id, CursoRequestDto requestDto) {
-        return repositorio.atualizarCurso(id, requestDto);
+    public CursoResponseDto atualizarCurso(String id, String nome, String descricao, Integer vagas) {
+        return repositorio.atualizarCurso(id, nome, descricao, vagas);
     }
 }

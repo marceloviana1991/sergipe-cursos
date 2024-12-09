@@ -1,12 +1,12 @@
 package marceloviana1991.sergipe_cursos.infra.gateways.jpa;
 
-import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 import marceloviana1991.sergipe_cursos.domain.Aluno;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoEntity;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class RepositorioAlunoJpa implements RepositorioAluno {
@@ -21,8 +21,8 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
 
 
     @Override
-    public AlunoResponseDto cadastrarAluno(AlunoRequestDto requestDto) {
-        Aluno aluno = mapper.request(requestDto);
+    public AlunoResponseDto cadastrarAluno(String cpf, String nome, LocalDate nascimento, String email) {
+        Aluno aluno = new Aluno(cpf, nome, nascimento, email);
         AlunoEntity entity = new AlunoEntity(aluno);
         repositorio.save(entity);
         return mapper.response(entity);
@@ -38,21 +38,27 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
     }
 
     @Override
-    public AlunoResponseDto detalharAluno(Long id) {
+    public AlunoResponseDto detalharAluno(String id) {
         AlunoEntity entity = repositorio.getReferenceById(id);
         return mapper.response(entity);
     }
 
     @Override
-    public void excluirAluno(Long id) {
+    public void excluirAluno(String id) {
         repositorio.deleteById(id);
     }
 
     @Override
-    public AlunoResponseDto atualizarAluno(Long id, AlunoRequestDto requestDto) {
+    public AlunoResponseDto atualizarAluno(String id,  String cpf, String nome, LocalDate nascimento, String email) {
         AlunoEntity entity = repositorio.getReferenceById(id);
-        Aluno aluno = mapper.atualizar(requestDto);
-        entity.atualizar(aluno);
+        Aluno aluno = new Aluno();
+        if(cpf != null) {
+            aluno.validacaoCPF(cpf);
+        }
+        if(email != null) {
+            aluno.validacaoEmail(email);
+        }
+        entity.atualizar(cpf, nome, nascimento, email);
         return mapper.response(entity);
     }
 

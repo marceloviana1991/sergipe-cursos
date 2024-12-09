@@ -10,7 +10,7 @@ public class ExclusaoCurso {
         this.repositorio = repositorio;
     }
 
-    public void excluirCurso(Long id) {
+    public void excluirCurso(String id) {
         repositorio.excluirCurso(id);
     }
 }

@@ -1,11 +1,16 @@
 package marceloviana1991.sergipe_cursos.domain;
 
+import java.util.UUID;
+
 public class Curso {
+    private UUID uuid;
     private String nome;
     private String descricao;
     private Integer vagas;
 
     public Curso(String nome, String descricao, Integer vagas) {
+        validacaoVagas(vagas);
+        this.uuid = UUID.randomUUID();
         this.nome = nome;
         this.descricao = descricao;
         this.vagas = vagas;
@@ -36,6 +41,16 @@ public class Curso {
 
     public void setVagas(Integer vagas) {
         this.vagas = vagas;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void validacaoVagas(Integer vagas) {
+        if (vagas == null || vagas <= 0) {
+            throw new IllegalArgumentException("Quantidade de vagas inválida!");
+        }
     }
 
 }

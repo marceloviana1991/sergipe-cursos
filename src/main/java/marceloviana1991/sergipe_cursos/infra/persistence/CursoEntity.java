@@ -8,8 +8,7 @@ import marceloviana1991.sergipe_cursos.domain.Curso;
 public class CursoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String nome;
     private String descricao;
     private Integer vagas;
@@ -17,16 +16,17 @@ public class CursoEntity {
     public CursoEntity() {}
 
     public CursoEntity(Curso curso) {
+        this.id = curso.getUuid().toString();
         this.nome = curso.getNome();
         this.descricao = curso.getDescricao();
         this.vagas = curso.getVagas();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -54,10 +54,10 @@ public class CursoEntity {
         this.vagas = vagas;
     }
 
-    public void atualizar(Curso curso) {
-        if (curso.getNome() != null) {this.nome = curso.getNome();}
-        if (curso.getDescricao() != null) {this.descricao = curso.getDescricao();}
-        if (curso.getVagas() != null) {this.vagas = curso.getVagas();}
+    public void atualizar(String nome, String descricao, Integer vagas) {
+        if (nome != null) {this.nome = nome;}
+        if (descricao != null) {this.descricao = descricao;}
+        if (vagas != null) {this.vagas = vagas;}
     }
 
     public void preencherVaga() {

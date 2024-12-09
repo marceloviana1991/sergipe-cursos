@@ -10,8 +10,7 @@ import java.time.LocalDate;
 public class AlunoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String cpf;
     private String nome;
     private LocalDate nascimento;
@@ -20,17 +19,18 @@ public class AlunoEntity {
     public AlunoEntity() {}
 
     public AlunoEntity(Aluno aluno) {
+        this.id = aluno.getUuid().toString();
         this.cpf = aluno.getCpf();
         this.nome = aluno.getNome();
         this.nascimento = aluno.getNascimento();
         this.email = aluno.getEmail();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,10 +66,10 @@ public class AlunoEntity {
         this.email = email;
     }
 
-    public void atualizar(Aluno aluno) {
-        if (aluno.getCpf() != null) {this.cpf = aluno.getCpf();}
-        if (aluno.getNome() != null) {this.nome = aluno.getNome();}
-        if (aluno.getNascimento() != null) {this.nascimento = aluno.getNascimento();}
-        if (aluno.getEmail() != null) {this.email = aluno.getEmail();}
+    public void atualizar(String cpf, String nome, LocalDate nascimento, String email) {
+        if (cpf != null) {this.cpf = cpf;}
+        if (nome != null) {this.nome = nome;}
+        if (nascimento != null) {this.nascimento = nascimento;}
+        if (email != null) {this.email = email;}
     }
 }

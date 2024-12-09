@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.usecases.aluno.*;
+import marceloviana1991.sergipe_cursos.domain.Aluno;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,8 @@ public class AlunoController {
     @PostMapping
     @Transactional
     public AlunoResponseDto cadastrarAluno(@RequestBody AlunoRequestDto requestDto) {
-        return cadastroAluno.cadastrarAluno(requestDto);
+        return cadastroAluno.cadastrarAluno(
+                requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
     }
 
     @GetMapping
@@ -41,19 +43,20 @@ public class AlunoController {
     }
 
     @GetMapping("{id}")
-    public AlunoResponseDto detatlharAluno(@PathVariable Long id) {
+    public AlunoResponseDto detatlharAluno(@PathVariable String id) {
         return detalhamentoAluno.detalharAluno(id);
     }
 
     @DeleteMapping("{id}")
     @Transactional
-    public void excluirAluno(@PathVariable Long id) {
+    public void excluirAluno(@PathVariable String id) {
         exclusaoAluno.excluirAluno(id);
     }
 
     @PutMapping("{id}")
     @Transactional
-    public AlunoResponseDto atualizarAluno(@PathVariable Long id, @RequestBody AlunoRequestDto requestDto) {
-        return atualizacaoAluno.atualizarAluno(id, requestDto);
+    public AlunoResponseDto atualizarAluno(@PathVariable String id, @RequestBody AlunoRequestDto requestDto) {
+        return atualizacaoAluno.atualizarAluno(
+                id, requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
     }
 }

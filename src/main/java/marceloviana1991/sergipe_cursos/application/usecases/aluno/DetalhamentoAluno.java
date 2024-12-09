@@ -11,7 +11,7 @@ public class DetalhamentoAluno {
         this.repositorio = repositorio;
     }
 
-    public AlunoResponseDto detalharAluno(Long id) {
+    public AlunoResponseDto detalharAluno(String id) {
         return repositorio.detalharAluno(id);
     }
 }
