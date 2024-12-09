@@ -63,7 +63,7 @@ Resquest
 ```
 Response
 {
-    "id": Long,
+    "id": "String",
     "cpf": "String (ddd.ddd.ddd-dd)",
     "nome": "String",
     "nascimento": "String (YYYY-MM-DD)",
@@ -107,7 +107,7 @@ Resquest
 ```
 Response
 {
-    "id": Long,
+    "id": "String",
     "nome": "String",
     "descricao": "String",
     "vagas": Integer
@@ -140,16 +140,16 @@ http://localhost:8080/matriculas
 ```
 Resquest
 {
-    "alunoId": Long,
-    "cursoId": Long
+    "alunoId": "String",
+    "cursoId": "String"
 }
 ```
 ```
 Response
 {
-    "id": Long,
-    "alunoId": Long,
-    "cursoId": Long
+    "id": "String",
+    "alunoId": "String",
+    "cursoId": "String"
 }
 ```
 
