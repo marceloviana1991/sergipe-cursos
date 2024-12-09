@@ -14,4 +14,12 @@ public class MapperCurso {
     public CursoResponseDto response(CursoEntity entity) {
         return new CursoResponseDto(entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas());
     }
+
+    public Curso atualizar(CursoRequestDto requestDto) {
+        Curso curso = new Curso();
+        curso.setNome(requestDto.nome());
+        curso.setDescricao(requestDto.descricao());
+        curso.setVagas(requestDto.vagas());
+        return curso;
+    }
 }

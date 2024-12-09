@@ -41,4 +41,9 @@ public class AlunoConfig {
         return new RepositorioAlunoJpa(repository, mapper);
     }
 
+    @Bean
+    public MapperAluno mapperAluno(){
+        return new MapperAluno();
+    }
+
 }

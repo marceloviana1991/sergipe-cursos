@@ -51,7 +51,7 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
     @Override
     public AlunoResponseDto atualizarAluno(Long id, AlunoRequestDto requestDto) {
         AlunoEntity entity = repositorio.getReferenceById(id);
-        Aluno aluno = mapper.request(requestDto);
+        Aluno aluno = mapper.atualizar(requestDto);
         entity.atualizar(aluno);
         return mapper.response(entity);
     }

@@ -41,5 +41,10 @@ public class CursoConfig {
         return new RepositorioCursoJpa(cursoRepository, mapper);
     }
 
+    @Bean
+    public MapperCurso mapperCurso() {
+        return new MapperCurso();
+    }
+
 
 }

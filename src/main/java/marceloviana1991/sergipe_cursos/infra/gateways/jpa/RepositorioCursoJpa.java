@@ -51,7 +51,7 @@ public class RepositorioCursoJpa implements RepositorioCurso {
 
     @Override
     public CursoResponseDto atualizarCurso(Long id, CursoRequestDto requestDto) {
-        Curso curso = mapper.request(requestDto);
+        Curso curso = mapper.atualizar(requestDto);
         CursoEntity entity = repositorio.getReferenceById(id);
         entity.atualizar(curso);
         return mapper.response(entity);

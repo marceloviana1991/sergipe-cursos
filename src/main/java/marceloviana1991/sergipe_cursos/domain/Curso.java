@@ -1,7 +1,6 @@
 package marceloviana1991.sergipe_cursos.domain;
 
 public class Curso {
-    private Long id;
     private String nome;
     private String descricao;
     private Integer vagas;
@@ -12,12 +11,7 @@ public class Curso {
         this.vagas = vagas;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Curso() {
     }
 
     public String getNome() {

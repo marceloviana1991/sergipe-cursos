@@ -15,4 +15,13 @@ public class MapperAluno {
         return new AlunoResponseDto(
                 entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
     }
+
+    public Aluno atualizar(AlunoRequestDto requestDto) {
+        Aluno aluno = new Aluno();
+        aluno.setCpf(requestDto.cpf());
+        aluno.setNome(requestDto.nome());
+        aluno.setNascimento(requestDto.nascimento());
+        aluno.setEmail(requestDto.email());
+        return aluno;
+    }
 }
