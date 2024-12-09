@@ -2,6 +2,7 @@ package marceloviana1991.sergipe_cursos.config;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 import marceloviana1991.sergipe_cursos.application.usecases.aluno.*;
+import marceloviana1991.sergipe_cursos.infra.gateways.jpa.MapperAluno;
 import marceloviana1991.sergipe_cursos.infra.gateways.jpa.RepositorioAlunoJpa;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
 import org.springframework.context.annotation.Bean;
@@ -36,8 +37,8 @@ public class AlunoConfig {
     }
 
     @Bean
-    public RepositorioAlunoJpa repositorioAlunoJpa(AlunoRepository repository) {
-        return new RepositorioAlunoJpa(repository);
+    public RepositorioAlunoJpa repositorioAlunoJpa(AlunoRepository repository, MapperAluno mapper) {
+        return new RepositorioAlunoJpa(repository, mapper);
     }
 
 }

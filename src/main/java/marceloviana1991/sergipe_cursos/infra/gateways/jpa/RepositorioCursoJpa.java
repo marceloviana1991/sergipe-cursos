@@ -13,20 +13,20 @@ import java.util.List;
 public class RepositorioCursoJpa implements RepositorioCurso {
 
     private final CursoRepository repositorio;
+    private final MapperCurso mapper;
 
-    public RepositorioCursoJpa(CursoRepository repositorio) {
+    public RepositorioCursoJpa(CursoRepository repositorio, MapperCurso mapper) {
         this.repositorio = repositorio;
+        this.mapper = mapper;
     }
 
 
     @Override
     public CursoResponseDto cadastrarCurso(CursoRequestDto requestDto) {
-        Curso curso = new Curso(requestDto.nome(), requestDto.descricao(), requestDto.vagas());
+        Curso curso = mapper.request(requestDto);
         CursoEntity entity = new CursoEntity(curso);
         repositorio.save(entity);
-        return new CursoResponseDto(
-                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()
-        );
+        return mapper.response(entity);
     }
 
     @Override
@@ -34,17 +34,14 @@ public class RepositorioCursoJpa implements RepositorioCurso {
         List<CursoEntity> entityList = repositorio.findAll();
         return entityList
                 .stream()
-                .map(entity -> new CursoResponseDto(
-                                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()))
+                .map(mapper::response)
                 .toList();
     }
 
     @Override
     public CursoResponseDto detalharCurso(Long id) {
         CursoEntity entity = repositorio.getReferenceById(id);
-        return new CursoResponseDto(
-                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()
-        );
+        return mapper.response(entity);
     }
 
     @Override
@@ -54,11 +51,9 @@ public class RepositorioCursoJpa implements RepositorioCurso {
 
     @Override
     public CursoResponseDto atualizarCurso(Long id, CursoRequestDto requestDto) {
-        Curso curso = new Curso(requestDto.nome(), requestDto.descricao(), requestDto.vagas());
+        Curso curso = mapper.request(requestDto);
         CursoEntity entity = repositorio.getReferenceById(id);
         entity.atualizar(curso);
-        return new CursoResponseDto(
-                entity.getId(), entity.getNome(), entity.getDescricao(), entity.getVagas()
-        );
+        return mapper.response(entity);
     }
 }

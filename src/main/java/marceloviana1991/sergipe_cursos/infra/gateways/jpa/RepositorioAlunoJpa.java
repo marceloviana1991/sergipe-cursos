@@ -12,19 +12,20 @@ import java.util.List;
 public class RepositorioAlunoJpa implements RepositorioAluno {
 
     private final AlunoRepository repositorio;
+    private final MapperAluno mapper;
 
-    public RepositorioAlunoJpa(AlunoRepository repositorio) {
+    public RepositorioAlunoJpa(AlunoRepository repositorio, MapperAluno mapper) {
         this.repositorio = repositorio;
+        this.mapper = mapper;
     }
 
 
     @Override
     public AlunoResponseDto cadastrarAluno(AlunoRequestDto requestDto) {
-        Aluno aluno = new Aluno(requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
+        Aluno aluno = mapper.request(requestDto);
         AlunoEntity entity = new AlunoEntity(aluno);
         repositorio.save(entity);
-        return new AlunoResponseDto(
-                entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
+        return mapper.response(entity);
     }
 
     @Override
@@ -32,21 +33,14 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
         List<AlunoEntity> entityList = repositorio.findAll();
         return entityList
                 .stream()
-                .map(entity -> new AlunoResponseDto(
-                        entity.getId(),
-                        entity.getCpf(),
-                        entity.getNome(),
-                        entity.getNascimento(),
-                        entity.getEmail()
-                ))
+                .map(mapper::response)
                 .toList();
     }
 
     @Override
     public AlunoResponseDto detalharAluno(Long id) {
         AlunoEntity entity = repositorio.getReferenceById(id);
-        return new AlunoResponseDto(
-                entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
+        return mapper.response(entity);
     }
 
     @Override
@@ -57,10 +51,9 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
     @Override
     public AlunoResponseDto atualizarAluno(Long id, AlunoRequestDto requestDto) {
         AlunoEntity entity = repositorio.getReferenceById(id);
-        Aluno aluno = new Aluno(requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
+        Aluno aluno = mapper.request(requestDto);
         entity.atualizar(aluno);
-        return new AlunoResponseDto(
-                entity.getId(), entity.getCpf(), entity.getNome(), entity.getNascimento(), entity.getEmail());
+        return mapper.response(entity);
     }
 
 
