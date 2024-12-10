@@ -1,6 +1,7 @@
 package marceloviana1991.sergipe_cursos.domain;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class Aluno {
@@ -10,7 +11,10 @@ public class Aluno {
     private LocalDate nascimento;
     private String email;
 
-    public Aluno(String cpf, String nome, LocalDate nascimento, String email) {
+    public Aluno(String cpf, String nome, LocalDate nascimento, String email, List<String> listaDeCpfsCadastrados,
+                 List<String> listaDeEmailsCadastrados) {
+        verificaSeJaPossuiCpfCadastrado(listaDeCpfsCadastrados, cpf);
+        verificaSeJaPossuiEmailCadastrado(listaDeEmailsCadastrados, email);
         this.validacaoCPF(cpf);
         this.validacaoEmail(email);
         this.uuid = UUID.randomUUID();
@@ -57,6 +61,18 @@ public class Aluno {
     public void validacaoEmail(String email) {
         if (email == null || !email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             throw new IllegalArgumentException("email no padrão incorreto!");
+        }
+    }
+
+    private void verificaSeJaPossuiCpfCadastrado(List<String> listaDeCpfsCadastrados, String cpf) {
+        if (listaDeCpfsCadastrados.contains(cpf)) {
+            throw new IllegalArgumentException("Já possui cadastro com esse cpf!");
+        }
+    }
+
+    private void verificaSeJaPossuiEmailCadastrado(List<String> listaDeEmailsCadastrados, String email) {
+        if (listaDeEmailsCadastrados.contains(email)) {
+            throw new IllegalArgumentException("Já possui cadastro com esse email!");
         }
     }
 

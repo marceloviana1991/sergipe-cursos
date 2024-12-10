@@ -25,7 +25,7 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
     public MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto) {
         AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
         CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
-        List<String> listaDeAlunosMatriculados = capturaListaDeAlunosMatriculados(alunoEntity);
+        List<String> listaDeAlunosMatriculados = repositorio.alunosMatriculadosPorCurso(requestDto.cursoId());
         Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId(), listaDeAlunosMatriculados ,
                 cursoEntity.getVagas());
         MatriculaEntity matriculaEntity = new MatriculaEntity(
@@ -44,10 +44,5 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
                          entity.getMatriculaKey().getAlunoId(), entity.getMatriculaKey().getCursoId())
                 )
                 .toList();
-    }
-
-    private List<String> capturaListaDeAlunosMatriculados(AlunoEntity alunoEntity) {
-        List<MatriculaEntity> matriculaEntityList = repositorio.findAllByMatriculaKeyAlunoId(alunoEntity.getId());
-        return matriculaEntityList.stream().map(entity -> entity.getMatriculaKey().getAlunoId()).toList();
     }
 }

@@ -22,7 +22,9 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
 
     @Override
     public AlunoResponseDto cadastrarAluno(String cpf, String nome, LocalDate nascimento, String email) {
-        Aluno aluno = new Aluno(cpf, nome, nascimento, email);
+        List<String> listaDeCpfsCadastrados = repositorio.cpfsDeAlunosCadastrados(cpf);
+        List<String> listaDeEmailsCadastrados = repositorio.emailsDeAlunosCadastrados(email);
+        Aluno aluno = new Aluno(cpf, nome, nascimento, email, listaDeCpfsCadastrados, listaDeEmailsCadastrados);
         AlunoEntity entity = new AlunoEntity(aluno);
         repositorio.save(entity);
         return mapper.response(entity);

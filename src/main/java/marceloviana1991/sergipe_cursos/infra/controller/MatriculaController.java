@@ -1,5 +1,6 @@
 package marceloviana1991.sergipe_cursos.infra.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaResponseDto;
@@ -29,6 +30,8 @@ public class MatriculaController {
             return ResponseEntity.ok(cadastroMatricula.cadastrarMatricula(requestDto));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(new MensagemDeErro(exception.getMessage()));
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
         }
     }
 
