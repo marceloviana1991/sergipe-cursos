@@ -25,17 +25,14 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
     public MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto) {
         AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
         CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
-        List<MatriculaEntity> matriculaEntityList = repositorio.findAllByAluno(alunoEntity);
-        List<String> idsDosAlunosJaMatriculados = matriculaEntityList
-                .stream().map(entity -> entity.getAluno().getId()).toList();
-        Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId(), idsDosAlunosJaMatriculados ,
+        List<String> listaDeAlunosMatriculados = capturaListaDeAlunosMatriculados(alunoEntity);
+        Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId(), listaDeAlunosMatriculados ,
                 cursoEntity.getVagas());
-
         MatriculaEntity matriculaEntity = new MatriculaEntity(
-                matricula.getUuid().toString(), alunoEntity, cursoEntity);
+                matricula.getIdAluno(), matricula.getIdCurso(), cursoEntity);
         repositorio.save(matriculaEntity);
         return new MatriculaResponseDto(
-                matriculaEntity.getId(), matriculaEntity.getAluno().getId(), matriculaEntity.getCurso().getId());
+                matriculaEntity.getMatriculaKey().getAlunoId(), matriculaEntity.getMatriculaKey().getCursoId());
     }
 
     @Override
@@ -44,8 +41,13 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
         return entityList
                 .stream()
                 .map(entity -> new MatriculaResponseDto(
-                        entity.getId(), entity.getAluno().getId(), entity.getCurso().getId()
-                ))
+                         entity.getMatriculaKey().getAlunoId(), entity.getMatriculaKey().getCursoId())
+                )
                 .toList();
+    }
+
+    private List<String> capturaListaDeAlunosMatriculados(AlunoEntity alunoEntity) {
+        List<MatriculaEntity> matriculaEntityList = repositorio.findAllByMatriculaKeyAlunoId(alunoEntity.getId());
+        return matriculaEntityList.stream().map(entity -> entity.getMatriculaKey().getAlunoId()).toList();
     }
 }

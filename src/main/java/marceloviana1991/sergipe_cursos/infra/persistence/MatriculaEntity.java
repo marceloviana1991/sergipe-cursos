@@ -5,43 +5,24 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Matriculas")
 public class MatriculaEntity {
-    @Id
-    private String id;
-    @ManyToOne
-    private AlunoEntity aluno;
-    @ManyToOne
-    private CursoEntity curso;
+
+    @EmbeddedId
+    private MatriculaKey matriculaKey = new MatriculaKey();
 
     public MatriculaEntity() {}
 
-    public MatriculaEntity(String id, AlunoEntity aluno, CursoEntity curso) {
-        curso.preencherVaga();
-        this.id = id;
-        this.aluno = aluno;
-        this.curso = curso;
+    public MatriculaEntity(String alunoId, String cursoId, CursoEntity cursoEntity) {
+        this.matriculaKey.setAlunoId(alunoId);
+        this.matriculaKey.setCursoId(cursoId);
+        cursoEntity.preencherVaga();
     }
 
-    public String getId() {
-        return id;
+
+    public MatriculaKey getMatriculaKey() {
+        return matriculaKey;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public AlunoEntity getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(AlunoEntity aluno) {
-        this.aluno = aluno;
-    }
-
-    public CursoEntity getCurso() {
-        return curso;
-    }
-
-    public void setCurso(CursoEntity curso) {
-        this.curso = curso;
+    public void setMatriculaKey(MatriculaKey matriculaKey) {
+        this.matriculaKey = matriculaKey;
     }
 }
