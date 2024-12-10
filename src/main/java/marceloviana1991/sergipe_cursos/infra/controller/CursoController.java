@@ -1,9 +1,11 @@
 package marceloviana1991.sergipe_cursos.infra.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import marceloviana1991.sergipe_cursos.application.dto.curso.CursoRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.curso.CursoResponseDto;
 import marceloviana1991.sergipe_cursos.application.usecases.curso.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +35,13 @@ public class CursoController {
 
     @PostMapping
     @Transactional
-    public CursoResponseDto cadastrarCurso(@RequestBody CursoRequestDto requestDto) {
-        return cadastroCurso.cadastrarCurso(requestDto.nome(), requestDto.descricao(), requestDto.vagas());
+    public ResponseEntity<?> cadastrarCurso(@RequestBody CursoRequestDto requestDto) {
+        try {
+            return ResponseEntity.ok(
+                    cadastroCurso.cadastrarCurso(requestDto.nome(), requestDto.descricao(), requestDto.vagas()));
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(new MensagemDeErro(exception.getMessage()));
+        }
     }
 
     @GetMapping
@@ -43,19 +50,35 @@ public class CursoController {
     }
 
     @GetMapping("{id}")
-    public CursoResponseDto detalharCurso(@PathVariable String id) {
-        return detalhamentoCurso.detalharCurso(id);
+    public ResponseEntity<?> detalharCurso(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(detalhamentoCurso.detalharCurso(id));
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("{id}")
     @Transactional
-    public void excluiCurso(@PathVariable String id) {
-        exclusaoCurso.excluirCurso(id);
+    public ResponseEntity<?> excluiCurso(@PathVariable String id) {
+        try {
+            exclusaoCurso.excluirCurso(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("{id}")
     @Transactional
-    public CursoResponseDto atualizarCurso(@PathVariable String id, @RequestBody CursoRequestDto requestDto) {
-        return atualizacaoCurso.atualizarCurso(id, requestDto.nome(), requestDto.descricao(), requestDto.vagas());
+    public ResponseEntity<?> atualizarCurso(@PathVariable String id, @RequestBody CursoRequestDto requestDto) {
+        try {
+            return ResponseEntity.ok(
+                    atualizacaoCurso.atualizarCurso(id, requestDto.nome(), requestDto.descricao(), requestDto.vagas()));
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(new MensagemDeErro(exception.getMessage()));
+        }
     }
 }

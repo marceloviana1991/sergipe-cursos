@@ -1,10 +1,11 @@
 package marceloviana1991.sergipe_cursos.infra.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.usecases.aluno.*;
-import marceloviana1991.sergipe_cursos.domain.Aluno;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,9 +33,14 @@ public class AlunoController {
 
     @PostMapping
     @Transactional
-    public AlunoResponseDto cadastrarAluno(@RequestBody AlunoRequestDto requestDto) {
-        return cadastroAluno.cadastrarAluno(
-                requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
+    public ResponseEntity<?> cadastrarAluno(@RequestBody AlunoRequestDto requestDto) {
+
+        try {
+            return ResponseEntity.ok(cadastroAluno.cadastrarAluno(
+                    requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email()));
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(new MensagemDeErro(exception.getMessage()));
+        }
     }
 
     @GetMapping
@@ -43,20 +49,35 @@ public class AlunoController {
     }
 
     @GetMapping("{id}")
-    public AlunoResponseDto detatlharAluno(@PathVariable String id) {
-        return detalhamentoAluno.detalharAluno(id);
+    public ResponseEntity<?> detatlharAluno(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(detalhamentoAluno.detalharAluno(id));
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("{id}")
     @Transactional
-    public void excluirAluno(@PathVariable String id) {
-        exclusaoAluno.excluirAluno(id);
+    public ResponseEntity<?> excluirAluno(@PathVariable String id) {
+        try {
+            exclusaoAluno.excluirAluno(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("{id}")
     @Transactional
-    public AlunoResponseDto atualizarAluno(@PathVariable String id, @RequestBody AlunoRequestDto requestDto) {
-        return atualizacaoAluno.atualizarAluno(
-                id, requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email());
+    public ResponseEntity<?> atualizarAluno(@PathVariable String id, @RequestBody AlunoRequestDto requestDto) {
+        try {
+            return ResponseEntity.ok(atualizacaoAluno.atualizarAluno(
+                    id, requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email()));
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(new MensagemDeErro(exception.getMessage()));
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

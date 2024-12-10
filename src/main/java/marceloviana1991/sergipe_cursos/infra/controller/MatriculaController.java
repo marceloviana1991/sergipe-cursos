@@ -5,6 +5,7 @@ import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaReques
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaResponseDto;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.CadastroMatricula;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.ListagemMatricula;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,12 @@ public class MatriculaController {
 
     @PostMapping
     @Transactional
-    public MatriculaResponseDto cadastrarMatricula(@RequestBody MatriculaRequestDto requestDto) {
-        return cadastroMatricula.cadastrarMatricula(requestDto);
+    public ResponseEntity<?> cadastrarMatricula(@RequestBody MatriculaRequestDto requestDto) {
+        try {
+            return ResponseEntity.ok(cadastroMatricula.cadastrarMatricula(requestDto));
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(new MensagemDeErro(exception.getMessage()));
+        }
     }
 
     @GetMapping
