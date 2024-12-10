@@ -14,7 +14,7 @@ public class AtualizacaoAluno {
         this.repositorio = repositorio;
     }
 
-    public AlunoResponseDto atualizarAluno(String id, String cpf, String nome, LocalDate nascimento, String email) {
-        return repositorio.atualizarAluno(id, cpf, nome, nascimento, email);
+    public AlunoResponseDto atualizarAluno(String id, String nome, LocalDate nascimento) {
+        return repositorio.atualizarAluno(id, nome, nascimento);
     }
 }

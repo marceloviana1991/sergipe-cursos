@@ -1,5 +1,6 @@
 package marceloviana1991.sergipe_cursos.infra.gateways.jpa;
 
+import jakarta.persistence.EntityNotFoundException;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioMatricula;
@@ -26,13 +27,13 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
         AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
         CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
         List<String> listaDeAlunosMatriculados = repositorio.alunosMatriculadosPorCurso(requestDto.cursoId());
-        Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId(), listaDeAlunosMatriculados ,
-                cursoEntity.getVagas());
-        MatriculaEntity matriculaEntity = new MatriculaEntity(
-                matricula.getIdAluno(), matricula.getIdCurso(), cursoEntity);
+        Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId());
+        matricula.verificaSeAlunoJaPossuiMatricula(listaDeAlunosMatriculados);
+        matricula.verificaSeCursoPossuiVagaDisponivel(cursoEntity.getVagas());
+        MatriculaEntity matriculaEntity = new MatriculaEntity(matricula.getUuid().toString(), alunoEntity, cursoEntity);
         repositorio.save(matriculaEntity);
         return new MatriculaResponseDto(
-                matriculaEntity.getMatriculaKey().getAlunoId(), matriculaEntity.getMatriculaKey().getCursoId());
+                matriculaEntity.getAlunoEntity().getId(), matriculaEntity.getCursoEntity().getId());
     }
 
     @Override
@@ -41,7 +42,7 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
         return entityList
                 .stream()
                 .map(entity -> new MatriculaResponseDto(
-                         entity.getMatriculaKey().getAlunoId(), entity.getMatriculaKey().getCursoId())
+                         entity.getAlunoEntity().getId(), entity.getCursoEntity().getId())
                 )
                 .toList();
     }

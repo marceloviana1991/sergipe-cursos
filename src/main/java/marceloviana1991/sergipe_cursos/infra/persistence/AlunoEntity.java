@@ -66,10 +66,8 @@ public class AlunoEntity {
         this.email = email;
     }
 
-    public void atualizar(String cpf, String nome, LocalDate nascimento, String email) {
-        if (cpf != null) {this.cpf = cpf;}
+    public void atualizar(String nome, LocalDate nascimento) {
         if (nome != null) {this.nome = nome;}
         if (nascimento != null) {this.nascimento = nascimento;}
-        if (email != null) {this.email = email;}
     }
 }

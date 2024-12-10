@@ -11,5 +11,5 @@ public interface RepositorioAluno {
     List<AlunoResponseDto> listarAlunos();
     AlunoResponseDto detalharAluno(String id);
     void excluirAluno(String id);
-    AlunoResponseDto atualizarAluno(String id, String cpf, String nome, LocalDate nascimento, String email);
+    AlunoResponseDto atualizarAluno(String id, String nome, LocalDate nascimento);
 }

@@ -24,7 +24,9 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
     public AlunoResponseDto cadastrarAluno(String cpf, String nome, LocalDate nascimento, String email) {
         List<String> listaDeCpfsCadastrados = repositorio.cpfsDeAlunosCadastrados(cpf);
         List<String> listaDeEmailsCadastrados = repositorio.emailsDeAlunosCadastrados(email);
-        Aluno aluno = new Aluno(cpf, nome, nascimento, email, listaDeCpfsCadastrados, listaDeEmailsCadastrados);
+        Aluno aluno = new Aluno(cpf, nome, nascimento, email);
+        aluno.verificaSeJaPossuiCpfCadastrado(listaDeCpfsCadastrados);
+        aluno.verificaSeJaPossuiEmailCadastrado(listaDeEmailsCadastrados);
         AlunoEntity entity = new AlunoEntity(aluno);
         repositorio.save(entity);
         return mapper.response(entity);
@@ -51,16 +53,9 @@ public class RepositorioAlunoJpa implements RepositorioAluno {
     }
 
     @Override
-    public AlunoResponseDto atualizarAluno(String id,  String cpf, String nome, LocalDate nascimento, String email) {
+    public AlunoResponseDto atualizarAluno(String id,  String nome, LocalDate nascimento) {
         AlunoEntity entity = repositorio.getReferenceById(id);
-        Aluno aluno = new Aluno();
-        if(cpf != null) {
-            aluno.validacaoCPF(cpf);
-        }
-        if(email != null) {
-            aluno.validacaoEmail(email);
-        }
-        entity.atualizar(cpf, nome, nascimento, email);
+        entity.atualizar(nome, nascimento);
         return mapper.response(entity);
     }
 

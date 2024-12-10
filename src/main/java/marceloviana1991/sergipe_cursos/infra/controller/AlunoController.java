@@ -72,8 +72,7 @@ public class AlunoController {
     @Transactional
     public ResponseEntity<?> atualizarAluno(@PathVariable String id, @RequestBody AlunoRequestDto requestDto) {
         try {
-            return ResponseEntity.ok(atualizacaoAluno.atualizarAluno(
-                    id, requestDto.cpf(), requestDto.nome(), requestDto.nascimento(), requestDto.email()));
+            return ResponseEntity.ok(atualizacaoAluno.atualizarAluno(id, requestDto.nome(), requestDto.nascimento()));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(new MensagemDeErro(exception.getMessage()));
         } catch (EntityNotFoundException exception) {

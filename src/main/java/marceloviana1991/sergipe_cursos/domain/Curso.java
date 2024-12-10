@@ -3,20 +3,16 @@ package marceloviana1991.sergipe_cursos.domain;
 import java.util.UUID;
 
 public class Curso {
-    private UUID uuid;
+    private final UUID uuid;
     private String nome;
     private String descricao;
     private Integer vagas;
 
     public Curso(String nome, String descricao, Integer vagas) {
-        validacaoVagas(vagas);
         this.uuid = UUID.randomUUID();
         this.nome = nome;
         this.descricao = descricao;
         this.vagas = vagas;
-    }
-
-    public Curso() {
     }
 
     public String getNome() {

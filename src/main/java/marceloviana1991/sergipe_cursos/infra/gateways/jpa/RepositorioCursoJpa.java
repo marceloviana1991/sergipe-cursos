@@ -22,6 +22,7 @@ public class RepositorioCursoJpa implements RepositorioCurso {
     @Override
     public CursoResponseDto cadastrarCurso(String nome, String descricao, Integer vagas) {
         Curso curso = new Curso(nome, descricao, vagas);
+        curso.validacaoVagas(vagas);
         CursoEntity entity = new CursoEntity(curso);
         repositorio.save(entity);
         return mapper.response(entity);
@@ -49,8 +50,6 @@ public class RepositorioCursoJpa implements RepositorioCurso {
 
     @Override
     public CursoResponseDto atualizarCurso(String id, String nome, String descricao, Integer vagas) {
-        Curso curso = new Curso();
-        curso.validacaoVagas(vagas);
         CursoEntity entity = repositorio.getReferenceById(id);
         entity.atualizar(nome, descricao, vagas);
         return mapper.response(entity);

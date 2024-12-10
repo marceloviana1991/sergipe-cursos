@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface MatriculaRepository extends JpaRepository<MatriculaEntity, MatriculaKey> {
-    @Query("SELECT m.matriculaKey.alunoId FROM MatriculaEntity m WHERE m.matriculaKey.cursoId = :cursoId")
+public interface MatriculaRepository extends JpaRepository<MatriculaEntity, String> {
+    @Query("SELECT m.alunoEntity.id FROM MatriculaEntity m WHERE m.cursoEntity.id = :cursoId")
     List<String> alunosMatriculadosPorCurso(String cursoId);
 }
