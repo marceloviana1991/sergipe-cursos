@@ -1,6 +1,5 @@
 package marceloviana1991.sergipe_cursos.application.usecases.aluno;
 
-import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.aluno.AlunoResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioAluno;
 

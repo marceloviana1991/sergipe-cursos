@@ -37,6 +37,16 @@ public class AlunoConfig {
     }
 
     @Bean
+    public ListagemCpfsCadastrados listarCpfsCadastrados(RepositorioAluno repositorioAluno) {
+        return new ListagemCpfsCadastrados(repositorioAluno);
+    }
+
+    @Bean
+    public ListagemEmailsCadastrados listarEmailsCadastrados(RepositorioAluno repositorioAluno) {
+        return new ListagemEmailsCadastrados(repositorioAluno);
+    }
+
+    @Bean
     public RepositorioAlunoJpa repositorioAlunoJpa(AlunoRepository repository, MapperAluno mapper) {
         return new RepositorioAlunoJpa(repository, mapper);
     }
