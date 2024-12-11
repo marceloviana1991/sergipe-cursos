@@ -28,7 +28,7 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
         Matricula matricula = new Matricula(requestDto.alunoId(), requestDto.cursoId());
         matricula.verificaSeAlunoJaPossuiMatricula(listaDeAlunosMatriculados);
         matricula.verificaSeCursoPossuiVagaDisponivel(quantidadeDeVagasDisponiveis);
-        MatriculaEntity matriculaEntity = criarEntidadeJpa(matricula.getUuid().toString(), requestDto);
+        MatriculaEntity matriculaEntity = criarEntidadeJpa(matricula);
         repositorio.save(matriculaEntity);
         return new MatriculaResponseDto(
                 matriculaEntity.getAlunoEntity().getId(), matriculaEntity.getCursoEntity().getId());
@@ -55,10 +55,10 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
         return cursoRepository.quantidadeDeVagasNoCurso(cursoId);
     }
 
-    private MatriculaEntity criarEntidadeJpa(String id, MatriculaRequestDto requestDto) {
-        AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
-        CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
-        return new MatriculaEntity(id, alunoEntity, cursoEntity);
+    private MatriculaEntity criarEntidadeJpa(Matricula matricula) {
+        AlunoEntity alunoEntity = alunoRepository.getReferenceById(matricula.getIdAluno());
+        CursoEntity cursoEntity = cursoRepository.getReferenceById(matricula.getIdCurso());
+        return new MatriculaEntity(matricula.getUuid().toString(), alunoEntity, cursoEntity);
 
     }
 }
