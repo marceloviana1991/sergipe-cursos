@@ -10,6 +10,9 @@ public class Matricula {
 
     public Matricula(String idAluno, String idCurso) {
         this.uuid = UUID.randomUUID();
+        if (idAluno == null || idCurso == null) {
+            throw new NullPointerException();
+        }
         this.idAluno = idAluno;
         this.idCurso = idCurso;
     }
