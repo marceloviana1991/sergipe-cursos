@@ -2,6 +2,7 @@ package marceloviana1991.sergipe_cursos.config;
 
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioMatricula;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.CadastroMatricula;
+import marceloviana1991.sergipe_cursos.application.usecases.matricula.ListagemAlunosMatriculados;
 import marceloviana1991.sergipe_cursos.application.usecases.matricula.ListagemMatricula;
 import marceloviana1991.sergipe_cursos.infra.gateways.jpa.RepositorioMatriculaJpa;
 import marceloviana1991.sergipe_cursos.infra.persistence.AlunoRepository;
@@ -21,6 +22,11 @@ public class MatriculaConfig {
     @Bean
     public ListagemMatricula listarMatriculas(RepositorioMatricula repositorioMatricula) {
         return new ListagemMatricula(repositorioMatricula);
+    }
+
+    @Bean
+    public ListagemAlunosMatriculados listarAlunosMatriculados(RepositorioMatricula repositorioMatricula) {
+        return new ListagemAlunosMatriculados(repositorioMatricula);
     }
 
     @Bean

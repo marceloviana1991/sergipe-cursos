@@ -1,6 +1,5 @@
 package marceloviana1991.sergipe_cursos.infra.gateways.jpa;
 
-import jakarta.persistence.EntityNotFoundException;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaRequestDto;
 import marceloviana1991.sergipe_cursos.application.dto.matricula.MatriculaResponseDto;
 import marceloviana1991.sergipe_cursos.application.gateways.RepositorioMatricula;
@@ -26,7 +25,7 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
     public MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto) {
         AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
         CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
-        List<String> listaDeAlunosMatriculados = repositorio.alunosMatriculadosPorCurso(requestDto.cursoId());
+        List<String> listaDeAlunosMatriculados = listarAlunosMatriculados(requestDto.cursoId());
         Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId());
         matricula.verificaSeAlunoJaPossuiMatricula(listaDeAlunosMatriculados);
         matricula.verificaSeCursoPossuiVagaDisponivel(cursoEntity.getVagas());
@@ -45,5 +44,10 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
                          entity.getAlunoEntity().getId(), entity.getCursoEntity().getId())
                 )
                 .toList();
+    }
+
+    @Override
+    public List<String> listarAlunosMatriculados(String cursoId) {
+        return repositorio.alunosMatriculadosPorCurso(cursoId);
     }
 }

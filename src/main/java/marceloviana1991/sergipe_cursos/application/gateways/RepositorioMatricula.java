@@ -8,4 +8,5 @@ import java.util.List;
 public interface RepositorioMatricula {
     MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto);
     List<MatriculaResponseDto> listarMatriculas();
+    List<String> listarAlunosMatriculados(String cursoId);
 }
