@@ -23,13 +23,12 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
 
     @Override
     public MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto) {
-        AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
-        CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
         List<String> listaDeAlunosMatriculados = listarAlunosMatriculados(requestDto.cursoId());
-        Matricula matricula = new Matricula(alunoEntity.getId(), cursoEntity.getId());
+        Integer quantidadeDeVagasDisponiveis = verificarQuantidadeDeVagasDisponiveis(requestDto.cursoId());
+        Matricula matricula = new Matricula(requestDto.alunoId(), requestDto.cursoId());
         matricula.verificaSeAlunoJaPossuiMatricula(listaDeAlunosMatriculados);
-        matricula.verificaSeCursoPossuiVagaDisponivel(cursoEntity.getVagas());
-        MatriculaEntity matriculaEntity = new MatriculaEntity(matricula.getUuid().toString(), alunoEntity, cursoEntity);
+        matricula.verificaSeCursoPossuiVagaDisponivel(quantidadeDeVagasDisponiveis);
+        MatriculaEntity matriculaEntity = criarEntidadeJpa(matricula.getUuid().toString(), requestDto);
         repositorio.save(matriculaEntity);
         return new MatriculaResponseDto(
                 matriculaEntity.getAlunoEntity().getId(), matriculaEntity.getCursoEntity().getId());
@@ -49,5 +48,17 @@ public class RepositorioMatriculaJpa implements RepositorioMatricula {
     @Override
     public List<String> listarAlunosMatriculados(String cursoId) {
         return repositorio.alunosMatriculadosPorCurso(cursoId);
+    }
+
+    @Override
+    public Integer verificarQuantidadeDeVagasDisponiveis(String cursoId) {
+        return cursoRepository.quantidadeDeVagasNoCurso(cursoId);
+    }
+
+    private MatriculaEntity criarEntidadeJpa(String id, MatriculaRequestDto requestDto) {
+        AlunoEntity alunoEntity = alunoRepository.getReferenceById(requestDto.alunoId());
+        CursoEntity cursoEntity = cursoRepository.getReferenceById(requestDto.cursoId());
+        return new MatriculaEntity(id, alunoEntity, cursoEntity);
+
     }
 }

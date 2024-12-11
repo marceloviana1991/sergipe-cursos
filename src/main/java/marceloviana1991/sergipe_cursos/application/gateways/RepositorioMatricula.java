@@ -9,4 +9,5 @@ public interface RepositorioMatricula {
     MatriculaResponseDto cadastrarMatricula(MatriculaRequestDto requestDto);
     List<MatriculaResponseDto> listarMatriculas();
     List<String> listarAlunosMatriculados(String cursoId);
+    Integer verificarQuantidadeDeVagasDisponiveis(String cursoId);
 }
