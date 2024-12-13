@@ -24,8 +24,8 @@ public class CursoController {
     }
 
     @GetMapping
-    public List<Curso> listar() {
-        return useCasesCurso.listar();
+    public List<Curso> listarAtivos() {
+        return useCasesCurso.listarAtivos();
     }
 
     @PutMapping

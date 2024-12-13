@@ -24,7 +24,7 @@ public class CursoService implements GatewayCurso {
     }
 
     @Override
-    public List<Curso> listar() {
+    public List<Curso> listarAtivos() {
         return cursoRepository.findAllByAtivoTrue()
                 .stream()
                 .map(cursoEntity -> new Curso(

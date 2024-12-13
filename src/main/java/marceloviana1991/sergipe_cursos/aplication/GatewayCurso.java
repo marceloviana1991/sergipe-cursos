@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GatewayCurso {
     Curso cadastrar(String nome, int vagas);
-    List<Curso> listar();
+    List<Curso> listarAtivos();
     void atualizarDados(String turma, String nome, Integer vagas);
     void desativar(String turma);
 }

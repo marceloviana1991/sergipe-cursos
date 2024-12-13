@@ -15,8 +15,8 @@ public class UseCasesCurso {
         return gatewayCurso.cadastrar(nome, vagas);
     }
 
-    public List<Curso> listar() {
-        return gatewayCurso.listar();
+    public List<Curso> listarAtivos() {
+        return gatewayCurso.listarAtivos();
     }
 
     public void atualizarDados(String turma, String nome, Integer vagas) {
