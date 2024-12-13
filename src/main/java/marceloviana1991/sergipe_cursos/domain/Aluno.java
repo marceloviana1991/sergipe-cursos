@@ -1,48 +1,16 @@
 package marceloviana1991.sergipe_cursos.domain;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-
 public class Aluno {
-    private final UUID uuid;
-    private final String cpf;
+    private String cpf;
     private String nome;
-    private LocalDate nascimento;
-    private final String email;
+    private String email;
 
-    public Aluno(String cpf, String nome, LocalDate nascimento, String email) {
+    public Aluno(String cpf, String nome, String email) {
         this.validacaoCPF(cpf);
         this.validacaoEmail(email);
-        this.uuid = UUID.randomUUID();
         this.cpf = cpf;
         this.nome = nome;
-        this.nascimento = nascimento;
         this.email = email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public LocalDate getNascimento() {
-        return nascimento;
-    }
-
-    public void setNascimento(LocalDate nascimento) {
-        this.nascimento = nascimento;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     private void validacaoCPF(String cpf) {
@@ -57,20 +25,27 @@ public class Aluno {
         }
     }
 
-    public void verificaSeJaPossuiCpfCadastrado(List<String> listaDeCpfsCadastrados) {
-        if (listaDeCpfsCadastrados.contains(this.cpf)) {
-            throw new IllegalArgumentException("Já possui cadastro com esse cpf!");
-        }
+    public String getCpf() {
+        return cpf;
     }
 
-    public void verificaSeJaPossuiEmailCadastrado(List<String> listaDeEmailsCadastrados) {
-        if (listaDeEmailsCadastrados.contains(this.email)) {
-            throw new IllegalArgumentException("Já possui cadastro com esse email!");
-        }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public String getNome() {
+        return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
