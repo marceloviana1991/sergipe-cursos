@@ -9,6 +9,10 @@ public class MatriculaBuilder {
         this.listaDeCpsDeAlunosMatriculados = listaDeCpsDeAlunosMatriculados;
     }
 
+    public Matricula createMatricula(String cfpAluno, String turmaCurso) {
+        return new Matricula(cfpAluno, turmaCurso);
+    }
+
     public void verificaSeAlunoJaPossuiMatriculaNoCurso(String cpf) {
         if (listaDeCpsDeAlunosMatriculados.contains(cpf)) {
             throw new IllegalArgumentException("Cpf Já possui matricula no curso!");
