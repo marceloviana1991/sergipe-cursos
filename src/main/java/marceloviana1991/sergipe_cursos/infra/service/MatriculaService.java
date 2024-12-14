@@ -24,7 +24,9 @@ public class MatriculaService implements GatewayMatricula {
         CursoEntity cursoEntity = cursoRepository.getReferenceById(turmaCurso);
         AlunoEntity alunoEntity = alunoRepository.getReferenceById(cpfAluno);
         MatriculaBuilder matriculaBuilder = new MatriculaBuilder(
-                matriculaRepository.listaDeCpsDeAlunosMatriculados(turmaCurso));
+                matriculaRepository.listaDeCpsDeAlunosMatriculados(turmaCurso),
+                alunoRepository.findAllCpfs(),
+                cursoRepository.findAllTurmaByAtivoTrue());
         matriculaBuilder.verificaSeAlunoJaPossuiMatriculaNoCurso(cpfAluno);
         matriculaBuilder.verificaSeCursoPossuiVagasDisponiveis(cursoEntity.getVagas());
         MatriculaEntity matriculaEntity = new MatriculaEntity(alunoEntity, cursoEntity);

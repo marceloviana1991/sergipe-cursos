@@ -27,13 +27,13 @@ public class Matricula {
         this.turmaCurso = turmaCurso;
     }
 
-    public void validacaoCpfAluno(String cpfAluno) {
+    private void validacaoCpfAluno(String cpfAluno) {
         if (cpfAluno.isEmpty() || cpfAluno.isBlank()) {
             throw new IllegalArgumentException("cpfAluno nulo ou em branco!");
         }
     }
 
-    public void validacaoTurmaCurso(String turmaCurso) {
+    private void validacaoTurmaCurso(String turmaCurso) {
         if (turmaCurso.isBlank() || turmaCurso.isEmpty()) {
             throw new IllegalArgumentException("turmaCurso nulo ou em branco!");
         }
