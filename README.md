@@ -43,11 +43,9 @@ http://localhost:8080/alunos
 
 | Método | Nome do endpoint |Body Request | Body Response | Path Variable
 |-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------------------|
-| POST | cadastrarAluno |application/json | application/json | |
-| GET | listarAlunos | |  application/json | |
-| GET | detalharAluno  | | application/json | ```{id}``` |
-| DELETE | excluirAluno |  | | ```{id}```  |
-| PUT | atualizarAluno | application/json | application/json | ```{id}```  |
+| POST | cadastrar |application/json | application/json | |
+| GET | listar | |  application/json | |
+| PUT | atualizarDados | application/json |  | |
 
 
 ### Body Content
@@ -63,7 +61,6 @@ Resquest
 ```
 Response
 {
-    "id": "String",
     "cpf": "String (ddd.ddd.ddd-dd)",
     "nome": "String",
     "nascimento": "String (YYYY-MM-DD)",
@@ -88,11 +85,10 @@ http://localhost:8080/cursos
 
 | Método | Nome do endpoint |Body Request | Body Response | Path Variable
 |-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------------------|
-| POST | cadastrarCurso |application/json | application/json | |
-| GET | listarCursos | |  application/json | |
-| GET | detalharCurso  | | application/json | ```{id}``` |
-| DELETE | excluirCurso |  | | ```{id}```  |
-| PUT | atualizarCurso | application/json | application/json | ```{id}```  |
+| POST | cadastrar |application/json | application/json | |
+| GET | listarAtivos | |  application/json | |
+| PUT | atualizarDados | application/json |  | |
+| PUT | desativar | | | ```{turma}```  |
 
 
 ### Body Content
@@ -107,7 +103,7 @@ Resquest
 ```
 Response
 {
-    "id": "String",
+    "turma": "String",
     "nome": "String",
     "descricao": "String",
     "vagas": Integer
@@ -130,8 +126,8 @@ http://localhost:8080/matriculas
 
 | Método | Nome do endpoint |Body Request | Body Response | Path Variable
 |-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------------------|
-| POST | cadastrarMatricula |application/json | application/json | |
-| GET | listarMatriculas | |  application/json | |
+| POST | cadastrar |application/json | application/json | |
+| GET | listar | |  application/json | |
 
 
 
@@ -140,16 +136,15 @@ http://localhost:8080/matriculas
 ```
 Resquest
 {
-    "alunoId": "String",
-    "cursoId": "String"
+    "cpfAluno": "String",
+    "turmaCurso": "String"
 }
 ```
 ```
 Response
 {
-    "id": "String",
-    "alunoId": "String",
-    "cursoId": "String"
+    "cpfAluno": "String",
+    "turmaCurso": "String"
 }
 ```
 
